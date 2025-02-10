@@ -13,8 +13,11 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
+import frc.robot.States.ElevatorStates;
 import frc.robot.commands.*;
+import frc.robot.commands.ElevatorCommands.ElevatorStateCommand;
+import frc.robot.commands.ElevatorCommands.ElevatorVoltageOverrideCommand;
+import frc.robot.commands.ElevatorCommands.ZeroElevatorCommand;
 import frc.robot.subsystems.*;
 
 /**
@@ -33,19 +36,30 @@ public class RobotContainer {
 	private final int rotationAxis = 2;
 
     /* Driver Buttons */
-    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton zeroGyro = new JoystickButton(driver, 17); //Joystick trigger
+    private final JoystickButton robotCentric = new JoystickButton(driver, 16); //Joystick B16
 
-    private final JoystickButton dampen = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton dampen = new JoystickButton(driver, 18);
 
-    private final JoystickButton DynamicLock = new JoystickButton(driver, XboxController.Button.kX.value);
+    private final JoystickButton zeroElevator = new JoystickButton(driver, 8);
+    private final JoystickButton l1 = new JoystickButton(driver, 7);
+    private final JoystickButton l2 = new JoystickButton(driver, 6);
+    private final JoystickButton l3 = new JoystickButton(driver, 5);
+    private final JoystickButton l4 = new JoystickButton(driver, 4);
 
-    private final Trigger forwardHold = new Trigger(() -> (driver.getRawAxis(4) > 0.75));
-    private final Trigger backwardHold = new Trigger(() -> (driver.getRawAxis(4) < -0.75));
+    private final JoystickButton ResetElevator = new JoystickButton(driver, 1);
+    private final JoystickButton elevatorUp = new JoystickButton(driver, 3);
+    private final JoystickButton elevatorDown = new JoystickButton(driver, 4);
+
+    //private final JoystickButton DynamicLock = new JoystickButton(driver, XboxController.Button.kX.value);
+
+    //private final Trigger forwardHold = new Trigger(() -> (driver.getRawAxis(4) > 0.75));
+    //private final Trigger backwardHold = new Trigger(() -> (driver.getRawAxis(4) < -0.75));
 
     /* Subsystems */
     private final PoseEstimator s_PoseEstimator = new PoseEstimator();
     private final Swerve s_Swerve = new Swerve(s_PoseEstimator);
+    private final Elevator s_Elevator = new Elevator();
     //private final Vision s_Vision = new Vision(s_PoseEstimator);
 
     /* AutoChooser */
@@ -63,6 +77,10 @@ public class RobotContainer {
                 () -> dampen.getAsBoolean(),
                 () -> 0 // Dynamic heading placeholder
             )
+        );
+
+        s_Elevator.setDefaultCommand(
+            new ElevatorStateCommand(s_Elevator)
         );
 
         // Configure the button bindings
@@ -90,19 +108,18 @@ public class RobotContainer {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
-    //Heading lock bindings
-        forwardHold.onTrue(
-            new InstantCommand(() -> States.driveState = States.DriveStates.forwardHold)).onFalse(
-            new InstantCommand(() -> States.driveState = States.DriveStates.standard)
-        );
-        backwardHold.onTrue(
-            new InstantCommand(() -> States.driveState = States.DriveStates.backwardHold)).onFalse(
-            new InstantCommand(() -> States.driveState = States.DriveStates.standard)
-        );
-        DynamicLock.onTrue(
-            new InstantCommand(() -> States.driveState = States.DriveStates.DynamicLock)).onFalse(
-            new InstantCommand(() -> States.driveState = States.DriveStates.standard)
-        );
+        zeroElevator.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
+        l1.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l1));
+        l2.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l2));
+        l3.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l3));
+        l4.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l4));
+
+        ResetElevator.whileTrue(new ZeroElevatorCommand(s_Elevator));
+
+        elevatorUp.whileTrue(new ElevatorVoltageOverrideCommand(s_Elevator, () -> 1));
+        elevatorDown.whileTrue(new ElevatorVoltageOverrideCommand(s_Elevator, () -> -1));
+
+        
     }
 
     /**

@@ -1,7 +1,8 @@
 package frc.robot;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
-
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 public final class HardwareConfigs {
@@ -9,6 +10,9 @@ public final class HardwareConfigs {
     public CANcoderConfiguration swerveCANcoderConfig = new CANcoderConfiguration();
     public SparkMaxConfig swerveAngleSparkConfig =  new SparkMaxConfig();
     public SparkMaxConfig swerveDriveSparkConfig =  new SparkMaxConfig();
+
+    public SparkMaxConfig elevatorConfig = new SparkMaxConfig();
+    public SparkMaxConfig elevator2Config = new SparkMaxConfig();
 
     public HardwareConfigs(){
        /** Swerve CANCoder Configuration */
@@ -51,6 +55,39 @@ public final class HardwareConfigs {
 
        swerveAngleSparkConfig.openLoopRampRate(Constants.Swerve.openLoopRamp);
        swerveAngleSparkConfig.closedLoopRampRate(Constants.Swerve.closedLoopRamp);
+
+
+       //Elevator configs
+       elevatorConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(80).voltageCompensation(12).inverted(false);
+
+       elevatorConfig
+          .closedLoop
+          .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+          // Set PID values for position control
+          .p(Constants.superstructureConstants.elevatorkP)
+          .outputRange(-1, 1);
+          
+       elevatorConfig
+       .encoder
+       .positionConversionFactor(Constants.superstructureConstants.elevatorPositionConversion)
+       .velocityConversionFactor(Constants.superstructureConstants.elevatorVelocityConversion);
+
+       //Elevator configs
+       elevator2Config.idleMode(IdleMode.kBrake).smartCurrentLimit(80).voltageCompensation(12).inverted(true);
+       
+       elevator2Config
+          .closedLoop
+          .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+          // Set PID values for position control
+          .p(Constants.superstructureConstants.elevatorkP)
+          .outputRange(-1, 1);
+          
+       elevator2Config
+       .encoder
+       .positionConversionFactor(Constants.superstructureConstants.elevatorPositionConversion)
+       .velocityConversionFactor(Constants.superstructureConstants.elevatorVelocityConversion);
+       
+
 
     }
 }

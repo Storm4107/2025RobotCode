@@ -180,6 +180,18 @@ public final class Constants {
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
 
+    public static final class superstructureConstants {
+        public static final int elevator1ID = 14;
+        public static final int elevator2ID = 9;
+
+        public static final double elevatorkP = 0.8;
+        public static final double elevatorkI = 0;
+        public static final double elevatorkD = 0;
+
+        public static final double elevatorPositionConversion = 0.430408724; //0.430408724
+        public static final double elevatorVelocityConversion = 0.430408724; //0.430408724
+    }
+
     public static final class PoseEstimator {
         public static final Matrix<N3,N1> stateStdDevs = VecBuilder.fill(0.1, 0.1, 0.1);
         public static final Matrix<N3,N1> visionStdDevs = VecBuilder.fill(0.9, 0.9, 0.9);
