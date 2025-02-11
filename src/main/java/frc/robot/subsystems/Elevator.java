@@ -15,6 +15,9 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -27,28 +30,27 @@ public class Elevator extends SubsystemBase {
 
   private SparkMax elevator1 =new SparkMax(Constants.superstructureConstants.elevator1ID, MotorType.kBrushless);
   private SparkMax elevator2 =new SparkMax(Constants.superstructureConstants.elevator2ID, MotorType.kBrushless);
-  private SparkClosedLoopController elevatorController1 = elevator1.getClosedLoopController();
-  private SparkClosedLoopController elevatorController2 = elevator2.getClosedLoopController();
+  private PIDController elevatorController = new PIDController(Constants.superstructureConstants.elevatorkP,
+   Constants.superstructureConstants.elevatorkI,
+    Constants.superstructureConstants.elevatorkD);
   private RelativeEncoder elevatorEncoder1 = elevator1.getEncoder();
-  private RelativeEncoder elevatorEncoder2 = elevator2.getEncoder();
   public double elevatorSetpoint;
 
   public Elevator() {
-    elevator1.configure(Robot.hardwareConfigs.elevatorConfig, com.revrobotics.spark.SparkBase.ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
-    elevator2.configure(Robot.hardwareConfigs.elevator2Config, com.revrobotics.spark.SparkBase.ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    elevator1.configure(Robot.hardwareConfigs.elevatorConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    elevator2.configure(Robot.hardwareConfigs.elevator2Config, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     setPosition(0);
   }
 
   public void runToSetpoint(double setpoint) {
-    elevatorController1.setReference(setpoint, ControlType.kPosition);
-    elevatorController2.setReference(setpoint, ControlType.kPosition);
+    double input = elevatorController.calculate(elevatorEncoder1.getPosition(), setpoint) * Constants.superstructureConstants.elevatorkF;
+    setVoltage(input);
     elevatorSetpoint = setpoint;
   }
 
   public void setVoltage(double voltage) {
     elevator1.setVoltage(voltage);
-    elevator2.setVoltage(voltage);
   }
 
   public double getPosition() {

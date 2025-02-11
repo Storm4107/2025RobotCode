@@ -58,36 +58,14 @@ public final class HardwareConfigs {
 
 
        //Elevator configs
-       elevatorConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(80).voltageCompensation(12).inverted(false);
-
-       elevatorConfig
-          .closedLoop
-          .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-          // Set PID values for position control
-          .p(Constants.superstructureConstants.elevatorkP)
-          .outputRange(-1, 1);
-          
+       elevatorConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(80).voltageCompensation(12).inverted(false).closedLoopRampRate(0.15);
+   
        elevatorConfig
        .encoder
        .positionConversionFactor(Constants.superstructureConstants.elevatorPositionConversion)
        .velocityConversionFactor(Constants.superstructureConstants.elevatorVelocityConversion);
 
        //Elevator configs
-       elevator2Config.idleMode(IdleMode.kBrake).smartCurrentLimit(80).voltageCompensation(12).inverted(true);
-       
-       elevator2Config
-          .closedLoop
-          .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-          // Set PID values for position control
-          .p(Constants.superstructureConstants.elevatorkP)
-          .outputRange(-1, 1);
-          
-       elevator2Config
-       .encoder
-       .positionConversionFactor(Constants.superstructureConstants.elevatorPositionConversion)
-       .velocityConversionFactor(Constants.superstructureConstants.elevatorVelocityConversion);
-       
-
-
+       elevator2Config.idleMode(IdleMode.kBrake).smartCurrentLimit(80).voltageCompensation(12).follow(Constants.superstructureConstants.elevator1ID, true);
     }
 }

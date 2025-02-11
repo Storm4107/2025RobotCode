@@ -184,9 +184,10 @@ public final class Constants {
         public static final int elevator1ID = 14;
         public static final int elevator2ID = 9;
 
-        public static final double elevatorkP = 0.8;
+        public static final double elevatorkP = 2;
         public static final double elevatorkI = 0;
         public static final double elevatorkD = 0;
+        public static final double elevatorkF = 0.25;
 
         public static final double elevatorPositionConversion = 0.430408724; //0.430408724
         public static final double elevatorVelocityConversion = 0.430408724; //0.430408724

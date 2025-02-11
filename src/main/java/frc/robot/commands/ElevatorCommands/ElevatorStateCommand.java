@@ -36,19 +36,19 @@ public class ElevatorStateCommand extends Command {
       break;
 
       case l1:
-        s_Elevator.runToSetpoint(5);
-      break;
-
-      case l2:
         s_Elevator.runToSetpoint(10);
       break;
 
-      case l3:
+      case l2:
         s_Elevator.runToSetpoint(15);
       break;
 
+      case l3:
+        s_Elevator.runToSetpoint(25);
+      break;
+
       case l4:
-        s_Elevator.runToSetpoint(20);
+        s_Elevator.runToSetpoint(30);
       break;
     
     }

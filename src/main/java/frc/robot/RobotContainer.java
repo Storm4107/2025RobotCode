@@ -118,7 +118,6 @@ public class RobotContainer {
 
         elevatorUp.whileTrue(new ElevatorVoltageOverrideCommand(s_Elevator, () -> 1));
         elevatorDown.whileTrue(new ElevatorVoltageOverrideCommand(s_Elevator, () -> -1));
-
         
     }
 
