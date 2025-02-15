@@ -25,63 +25,61 @@ import frc.robot.HardwareConfigs;
 import frc.robot.Robot;
 import frc.robot.States;
 
-public class Elevator extends SubsystemBase {
-  /** Creates a new Elevator. */
+public class Arm extends SubsystemBase {
+  /** Creates a new Arm. */
 
-  private SparkMax elevator1 =new SparkMax(Constants.superstructureConstants.elevator1ID, MotorType.kBrushless);
-  private SparkMax elevator2 =new SparkMax(Constants.superstructureConstants.elevator2ID, MotorType.kBrushless);
-  private PIDController elevatorController = new PIDController(Constants.superstructureConstants.elevatorkP,
-   Constants.superstructureConstants.elevatorkI,
-    Constants.superstructureConstants.elevatorkD);
-  private RelativeEncoder elevatorEncoder1 = elevator1.getEncoder();
-  public double elevatorSetpoint;
+  private SparkMax arm = new SparkMax(Constants.superstructureConstants.armID, MotorType.kBrushless);
+  private PIDController armController = new PIDController(
+    Constants.superstructureConstants.armkP,
+   Constants.superstructureConstants.armkI,
+    Constants.superstructureConstants.armkD);
+  private RelativeEncoder armEncoder = arm.getEncoder();
+  public double armSetpoint;
 
-  public Elevator() {
-    elevator1.configure(Robot.hardwareConfigs.elevatorConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    elevator2.configure(Robot.hardwareConfigs.elevator2Config, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+  public Arm() {
+    arm.configure(Robot.hardwareConfigs.armConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     setPosition(0);
   }
 
   public void runToSetpoint(double setpoint) {
-    double input = elevatorController.calculate(elevatorEncoder1.getPosition(), setpoint) * Constants.superstructureConstants.elevatorkF;
+    double input = armController.calculate(armEncoder.getPosition(), setpoint) * Constants.superstructureConstants.armkF;
     setVoltage(input);
-    elevatorSetpoint = setpoint;
+    armSetpoint = setpoint;
   }
 
   public void setVoltage(double voltage) {
-    elevator1.setVoltage(voltage);
+    arm.setVoltage(voltage);
   }
 
   public double getPosition() {
-    return elevatorEncoder1.getPosition();
+    return armEncoder.getPosition();
   }
 
   public double getCurrent() {
-    return elevator1.getOutputCurrent();
+    return arm.getOutputCurrent();
   }
 
   public double getError() {
-    return (elevatorSetpoint - getPosition());
+    return (armSetpoint - getPosition());
   }
 
   public double getVoltage() {
-    return elevator1.getAppliedOutput() * 12;
+    return arm.getAppliedOutput() * 12;
   }
 
   public void setPosition(double inches) {
-    elevatorEncoder1.setPosition(inches);
+    armEncoder.setPosition(inches);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Elevator position", getPosition());
-    SmartDashboard.putNumber("Elevator voltage", getVoltage());
-    SmartDashboard.putNumber("Elevator error", getError());
-    SmartDashboard.putNumber("Elevator setpoint", elevatorSetpoint);
+    SmartDashboard.putNumber("Arm position", getPosition());
+    SmartDashboard.putNumber("Arm voltage", getVoltage());
+    SmartDashboard.putNumber("Arm error", getError());
+    SmartDashboard.putNumber("Arm setpoint", armSetpoint);
 
-    SmartDashboard.putBoolean("motor 1",  elevator1.getInverted());
-    SmartDashboard.putBoolean("motor 2",  elevator2.getInverted());
+    SmartDashboard.putBoolean("motor 1",  arm.getInverted());
   }
 }

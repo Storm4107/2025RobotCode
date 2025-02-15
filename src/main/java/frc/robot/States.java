@@ -14,8 +14,13 @@ public class States {
         idle, zero, l1, l2, l3, l4, lowAlgae, highAlgae, barge, intake
     }
 
+    public static enum ArmStates {
+        idle, zero, l1, l2, l3, l4, lowAlgae, highAlgae, barge, intake
+    }
+
     public static DriveStates driveState = DriveStates.standard;
     public static AlignedStates alignedState = AlignedStates.normal;
     public static ElevatorStates elevatorState = ElevatorStates.idle;
+    public static ArmStates armState = ArmStates.idle;
     
 }

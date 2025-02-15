@@ -183,11 +183,20 @@ public final class Constants {
     public static final class superstructureConstants {
         public static final int elevator1ID = 14;
         public static final int elevator2ID = 9;
+        public static final int armID = 22;
 
         public static final double elevatorkP = 2;
         public static final double elevatorkI = 0;
         public static final double elevatorkD = 0;
         public static final double elevatorkF = 0.25;
+
+        public static final double armkP = 2;
+        public static final double armkI = 0;
+        public static final double armkD = 0;
+        public static final double armkF = 0.25;
+
+        public static final double armPositionConversion = 0.430408724; //0.430408724
+        public static final double armVelocityConversion = 0.430408724; //0.430408724
 
         public static final double elevatorPositionConversion = 0.430408724; //0.430408724
         public static final double elevatorVelocityConversion = 0.430408724; //0.430408724

@@ -18,6 +18,9 @@ import frc.robot.commands.*;
 import frc.robot.commands.ElevatorCommands.ElevatorStateCommand;
 import frc.robot.commands.ElevatorCommands.ElevatorVoltageOverrideCommand;
 import frc.robot.commands.ElevatorCommands.ZeroElevatorCommand;
+import frc.robot.commands.ArmCommands.ArmStateCommand;
+import frc.robot.commands.ArmCommands.ArmVoltageOverrideCommand;
+import frc.robot.commands.ArmCommands.ZeroArmCommand;
 import frc.robot.subsystems.*;
 
 /**
@@ -29,6 +32,7 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
+    private final Joystick operator = new Joystick(1);
 
    /* Driver Controls */
 	private final int translationAxis = 1;
@@ -51,6 +55,12 @@ public class RobotContainer {
     private final JoystickButton elevatorUp = new JoystickButton(driver, 3);
     private final JoystickButton elevatorDown = new JoystickButton(driver, 4);
 
+
+    private final JoystickButton armUp = new JoystickButton(operator, 4);
+    private final JoystickButton armDown = new JoystickButton(operator, 3);
+
+
+
     //private final JoystickButton DynamicLock = new JoystickButton(driver, XboxController.Button.kX.value);
 
     //private final Trigger forwardHold = new Trigger(() -> (driver.getRawAxis(4) > 0.75));
@@ -60,6 +70,7 @@ public class RobotContainer {
     private final PoseEstimator s_PoseEstimator = new PoseEstimator();
     private final Swerve s_Swerve = new Swerve(s_PoseEstimator);
     private final Elevator s_Elevator = new Elevator();
+    private final Arm s_Arm = new Arm();
     //private final Vision s_Vision = new Vision(s_PoseEstimator);
 
     /* AutoChooser */
@@ -81,6 +92,10 @@ public class RobotContainer {
 
         s_Elevator.setDefaultCommand(
             new ElevatorStateCommand(s_Elevator)
+        );
+
+        s_Arm.setDefaultCommand(
+            new ArmStateCommand(s_Arm)
         );
 
         // Configure the button bindings
@@ -118,6 +133,9 @@ public class RobotContainer {
 
         elevatorUp.whileTrue(new ElevatorVoltageOverrideCommand(s_Elevator, () -> 1));
         elevatorDown.whileTrue(new ElevatorVoltageOverrideCommand(s_Elevator, () -> -1));
+
+        armUp.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> 12));
+        armDown.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> -12));
         
     }
 
