@@ -21,6 +21,8 @@ import frc.robot.commands.ElevatorCommands.ZeroElevatorCommand;
 import frc.robot.commands.ArmCommands.ArmStateCommand;
 import frc.robot.commands.ArmCommands.ArmVoltageOverrideCommand;
 import frc.robot.commands.ArmCommands.ZeroArmCommand;
+import frc.robot.commands.IntakeCommands.IntakeStateCommand;
+import frc.robot.commands.IntakeCommands.IntakeVoltageOverrideCommand;
 import frc.robot.subsystems.*;
 
 /**
@@ -59,6 +61,9 @@ public class RobotContainer {
     private final JoystickButton armUp = new JoystickButton(operator, 4);
     private final JoystickButton armDown = new JoystickButton(operator, 3);
 
+    private final JoystickButton intake = new JoystickButton(operator, 1);
+    private final JoystickButton outtake = new JoystickButton(operator, 2);
+
 
 
     //private final JoystickButton DynamicLock = new JoystickButton(driver, XboxController.Button.kX.value);
@@ -71,6 +76,8 @@ public class RobotContainer {
     private final Swerve s_Swerve = new Swerve(s_PoseEstimator);
     private final Elevator s_Elevator = new Elevator();
     private final Arm s_Arm = new Arm();
+    private final Intake s_Intake = new Intake();
+
     //private final Vision s_Vision = new Vision(s_PoseEstimator);
 
     /* AutoChooser */
@@ -96,6 +103,10 @@ public class RobotContainer {
 
         s_Arm.setDefaultCommand(
             new ArmStateCommand(s_Arm)
+        );
+
+        s_Intake.setDefaultCommand(
+            new IntakeStateCommand(s_Intake)
         );
 
         // Configure the button bindings
@@ -136,6 +147,9 @@ public class RobotContainer {
 
         armUp.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> 12));
         armDown.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> -12));
+
+        intake.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> 6));
+        outtake.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> -6));
         
     }
 

@@ -16,6 +16,12 @@ public final class HardwareConfigs {
 
     public SparkMaxConfig armConfig = new SparkMaxConfig();
 
+    public SparkMaxConfig intakeConfig = new SparkMaxConfig();
+    public SparkMaxConfig intake2Config = new SparkMaxConfig();
+
+
+
+
     public HardwareConfigs(){
        /** Swerve CANCoder Configuration */
        swerveCANcoderConfig.MagnetSensor.SensorDirection = Constants.Swerve.cancoderInvert;
@@ -77,6 +83,17 @@ public final class HardwareConfigs {
        .encoder
        .positionConversionFactor(Constants.superstructureConstants.armPositionConversion)
        .velocityConversionFactor(Constants.superstructureConstants.armVelocityConversion);
+
+       //Intake configs
+       intakeConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(80).voltageCompensation(12).inverted(false).closedLoopRampRate(0.15);
+   
+       intakeConfig
+       .encoder
+       .positionConversionFactor(Constants.superstructureConstants.intakePositionConversion)
+       .velocityConversionFactor(Constants.superstructureConstants.intakeVelocityConversion);
+
+       //Intake configs
+       intake2Config.idleMode(IdleMode.kBrake).smartCurrentLimit(80).voltageCompensation(12).follow(Constants.superstructureConstants.intake1ID, true);
 
     }
 }
