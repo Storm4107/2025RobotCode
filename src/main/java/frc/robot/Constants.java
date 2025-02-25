@@ -186,6 +186,8 @@ public final class Constants {
         public static final int armID = 22;
         public static final int intake1ID = 23;
         public static final int intake2ID = 24;
+        public static final int algaeIntakeID = 30;
+        public static final int algaeArmID = 25;
 
         public static final double elevatorkP = 2;
         public static final double elevatorkI = 0;
@@ -202,6 +204,16 @@ public final class Constants {
         public static final double intakekD = 1; 
         public static final double intakekF = 1;
 
+        public static final double algaeIntakekP = 1;
+        public static final double algaeIntakekI = 1;
+        public static final double algaeIntakekD = 1; 
+        public static final double algaeIntakekF = 1;
+
+        public static final double algaeArmkP = 5;
+        public static final double algaeArmkI = 0;
+        public static final double algaeArmkD = 0; 
+        public static final double algaeArmkF = 0.25;
+
         public static final double armPositionConversion = 0.430408724; //0.430408724
         public static final double armVelocityConversion = 0.430408724; //0.430408724
 
@@ -210,6 +222,12 @@ public final class Constants {
 
         public static final double intakePositionConversion = 0.430408724; //0.430408724
         public static final double intakeVelocityConversion = 0.430408724; //0.430408724
+
+        public static final double algaeIntakePositionConversion = 0.430408724; //0.430408724
+        public static final double algaeIntakeVelocityConversion = 0.430408724; //0.430408724
+
+        public static final double algaeArmPositionConversion = 0.430408724; //0.430408724
+        public static final double algaeArmVelocityConversion = 0.430408724; //0.430408724
     }
 
     public static final class PoseEstimator {

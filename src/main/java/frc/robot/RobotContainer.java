@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.States.AlgaeArmStates;
 import frc.robot.States.ElevatorStates;
 import frc.robot.commands.*;
 import frc.robot.commands.ElevatorCommands.ElevatorStateCommand;
@@ -23,6 +25,8 @@ import frc.robot.commands.ArmCommands.ArmVoltageOverrideCommand;
 import frc.robot.commands.ArmCommands.ZeroArmCommand;
 import frc.robot.commands.IntakeCommands.IntakeStateCommand;
 import frc.robot.commands.IntakeCommands.IntakeVoltageOverrideCommand;
+import frc.robot.commands.AlgaeIntakeCommands.*;
+import frc.robot.commands.AlgaeArmCommands.*;
 import frc.robot.subsystems.*;
 
 /**
@@ -58,11 +62,21 @@ public class RobotContainer {
     private final JoystickButton elevatorDown = new JoystickButton(driver, 4);
 
 
-    private final JoystickButton armUp = new JoystickButton(operator, 4);
-    private final JoystickButton armDown = new JoystickButton(operator, 3);
+    private final JoystickButton armUp = new JoystickButton(operator, 11);
+    private final JoystickButton armDown = new JoystickButton(operator, 7);
 
     private final JoystickButton intake = new JoystickButton(operator, 1);
     private final JoystickButton outtake = new JoystickButton(operator, 2);
+
+    private final JoystickButton algaeIntake = new JoystickButton(operator, 3);
+    private final JoystickButton algaeOuttake = new JoystickButton(operator, 4);
+
+    private final JoystickButton algaeUp = new JoystickButton(operator, 5);
+    private final JoystickButton algaeDown = new JoystickButton(operator, 6);
+
+    private final JoystickButton zero = new JoystickButton(operator, 9);
+    private final JoystickButton processor = new JoystickButton(operator, 8);
+    private final JoystickButton pickup = new JoystickButton(operator, 10);
 
 
 
@@ -77,6 +91,8 @@ public class RobotContainer {
     private final Elevator s_Elevator = new Elevator();
     private final Arm s_Arm = new Arm();
     private final Intake s_Intake = new Intake();
+    private final AlgaeIntake s_AlgaeIntake = new AlgaeIntake();
+    private final AlgaeArm s_AlgaeArm = new AlgaeArm();
 
     //private final Vision s_Vision = new Vision(s_PoseEstimator);
 
@@ -107,6 +123,14 @@ public class RobotContainer {
 
         s_Intake.setDefaultCommand(
             new IntakeStateCommand(s_Intake)
+        );
+
+        s_AlgaeIntake.setDefaultCommand(
+            new AlgaeIntakeStateCommand(s_AlgaeIntake)
+        );
+
+        s_AlgaeArm.setDefaultCommand(
+            new AlgaeArmStateCommand(s_AlgaeArm)
         );
 
         // Configure the button bindings
@@ -145,11 +169,23 @@ public class RobotContainer {
         elevatorUp.whileTrue(new ElevatorVoltageOverrideCommand(s_Elevator, () -> 1));
         elevatorDown.whileTrue(new ElevatorVoltageOverrideCommand(s_Elevator, () -> -1));
 
-        armUp.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> 12));
-        armDown.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> -12));
+        armUp.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> 8));
+        armDown.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> -8));
 
         intake.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> 6));
         outtake.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> -6));
+
+        algaeIntake.whileTrue(new AlgaeIntakeVoltageOverrideCommand(s_AlgaeIntake, () -> 3));
+        algaeOuttake.whileTrue(new AlgaeIntakeVoltageOverrideCommand(s_AlgaeIntake, () -> -3));
+
+        algaeUp.whileTrue(new AlgaeArmVoltageOverrideCommand(s_AlgaeArm, () -> 1));
+        algaeDown.whileTrue(new AlgaeArmVoltageOverrideCommand(s_AlgaeArm, () -> -1));
+
+        processor.onTrue(new InstantCommand(() -> States.algaeArmState = AlgaeArmStates.processor));
+        pickup.onTrue(new InstantCommand(() -> States.algaeArmState = AlgaeArmStates.pickup));
+        zero.onTrue(new InstantCommand(() -> States.algaeArmState = AlgaeArmStates.zero));
+
+        
         
     }
 

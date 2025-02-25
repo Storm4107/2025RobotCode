@@ -30,7 +30,8 @@ public class Intake extends SubsystemBase {
 
   private SparkMax intake1 =new SparkMax(Constants.superstructureConstants.intake1ID, MotorType.kBrushless);
   private SparkMax intake2 =new SparkMax(Constants.superstructureConstants.intake2ID, MotorType.kBrushless);
-  private PIDController intakeController = new PIDController(Constants.superstructureConstants.intakekP,
+  private PIDController intakeController = new PIDController(
+    Constants.superstructureConstants.intakekP,
    Constants.superstructureConstants.intakekI,
     Constants.superstructureConstants.intakekD);
   private RelativeEncoder intakeEncoder1 = intake1.getEncoder();

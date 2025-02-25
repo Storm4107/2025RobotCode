@@ -22,11 +22,21 @@ public class States {
         idle
     }
 
+    public static enum AlgaeIntakeStates {
+        idle
+    }
+
+    public static enum AlgaeArmStates {
+        idle, zero, processor, pickup
+    }
+
     public static DriveStates driveState = DriveStates.standard;
     public static AlignedStates alignedState = AlignedStates.normal;
-    public static ElevatorStates elevatorState = ElevatorStates.idle;
 
+    public static ElevatorStates elevatorState = ElevatorStates.idle;
     public static ArmStates armState = ArmStates.idle;
     public static IntakeStates intakeState = IntakeStates.idle;
+    public static AlgaeIntakeStates algaeIntakeState = AlgaeIntakeStates.idle;
+    public static AlgaeArmStates algaeArmState = AlgaeArmStates.idle;
     
 }

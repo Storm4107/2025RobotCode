@@ -3,6 +3,7 @@ package frc.robot;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 public final class HardwareConfigs {
@@ -18,6 +19,10 @@ public final class HardwareConfigs {
 
     public SparkMaxConfig intakeConfig = new SparkMaxConfig();
     public SparkMaxConfig intake2Config = new SparkMaxConfig();
+
+    public SparkMaxConfig algaeIntakeConfig = new SparkMaxConfig();
+
+    public SparkMaxConfig algaeArmConfig = new SparkMaxConfig();
 
 
 
@@ -94,6 +99,22 @@ public final class HardwareConfigs {
 
        //Intake configs
        intake2Config.idleMode(IdleMode.kBrake).smartCurrentLimit(80).voltageCompensation(12).follow(Constants.superstructureConstants.intake1ID, true);
+
+       //AlgaeIntake configs
+       algaeIntakeConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(80).voltageCompensation(12).inverted(false).closedLoopRampRate(0.15);
+
+       algaeIntakeConfig
+       .encoder
+       .positionConversionFactor(Constants.superstructureConstants.algaeIntakePositionConversion)
+       .velocityConversionFactor(Constants.superstructureConstants.algaeIntakeVelocityConversion);
+
+       //AlgaeArm configs
+       algaeArmConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(80).voltageCompensation(12).inverted(false).closedLoopRampRate(0.15);
+
+       algaeArmConfig
+       .encoder
+       .positionConversionFactor(Constants.superstructureConstants.algaeArmPositionConversion)
+       .velocityConversionFactor(Constants.superstructureConstants.algaeArmVelocityConversion);
 
     }
 }
