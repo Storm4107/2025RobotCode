@@ -31,25 +31,28 @@ public class ArmStateCommand extends Command {
         s_Arm.setVoltage(0);
       break;
     
-      case zero:
+      case azero:
         s_Arm.runToSetpoint(0);
       break;
 
-      case l1:
-        s_Arm.runToSetpoint(10);
+      case al1:
+        s_Arm.runToSetpoint(-10);
       break;
 
-      case l2:
-        s_Arm.runToSetpoint(15);
+      case al2:
+        s_Arm.runToSetpoint(-75);
       break;
 
-      case l3:
-        s_Arm.runToSetpoint(25);
+      case al3:
+        s_Arm.runToSetpoint(-25);
       break;
 
-      case l4:
-        s_Arm.runToSetpoint(30);
+      case al4:
+        s_Arm.runToSetpoint(-30);
       break;
+
+      case apickup:
+        s_Arm.runToSetpoint(-3);
     
     }
   }
