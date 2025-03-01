@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -34,10 +35,11 @@ public class Intake extends SubsystemBase {
   private SparkMax intake2 =new SparkMax(Constants.superstructureConstants.intake2ID, MotorType.kBrushless);
   private PIDController intakeController = new PIDController(
     Constants.superstructureConstants.intakekP,
-   Constants.superstructureConstants.intakekI,
+    Constants.superstructureConstants.intakekI,
     Constants.superstructureConstants.intakekD);
   private RelativeEncoder intakeEncoder1 = intake1.getEncoder();
   public double intakeSetpoint;
+  private Debouncer currentDebouncer = new Debouncer(0.25);
 
   public DigitalInput coralSensor = new DigitalInput(Constants.superstructureConstants.coralSensor);
 
@@ -83,13 +85,23 @@ public class Intake extends SubsystemBase {
     return coralSensor.get();
   }
 
+  public boolean holdingWithCurrent() {
+    if (currentDebouncer.calculate(getCurrent() > 25)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("intake position", getPosition());
     SmartDashboard.putNumber("intake voltage", getVoltage());
     SmartDashboard.putNumber("intake error", getError());
+    SmartDashboard.putNumber("intae Current", getCurrent());
     SmartDashboard.putNumber("intake setpoint", intakeSetpoint);
+    SmartDashboard.putBoolean("Intake current limit", holdingWithCurrent()); 
 
     SmartDashboard.putBoolean("coralSensor", coralSensor()); 
 

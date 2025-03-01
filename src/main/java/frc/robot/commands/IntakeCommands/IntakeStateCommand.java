@@ -31,19 +31,24 @@ public class IntakeStateCommand extends Command {
     switch(States.intakeState) {
 
       case idle:
+
+        if (s_Intake.holdingWithCurrent()) {
+         s_Intake.setVoltage(2);
+       } 
+       else{
         s_Intake.setVoltage(0);
+    }      
       break;
       
       case intakec:
-      if (s_Intake.coralSensor()) {
-        s_Intake.setVoltage(6);
-      } 
-      else{
-        s_Intake.setVoltage(0);
-      States.intakeState = IntakeStates.idle; 
+        if (s_Intake.coralSensor()) {
+          s_Intake.setVoltage(6);
+        } 
+        else{
+         s_Intake.setVoltage(0);
+        States.intakeState = IntakeStates.idle; 
       }      
-       break;
-
+      break;
       }
       }
 

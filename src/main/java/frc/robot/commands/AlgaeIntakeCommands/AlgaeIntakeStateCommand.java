@@ -6,6 +6,7 @@ package frc.robot.commands.AlgaeIntakeCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.States;
+import frc.robot.States.IntakeStates;
 import frc.robot.subsystems.AlgaeIntake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -28,8 +29,22 @@ public class AlgaeIntakeStateCommand extends Command {
     switch(States.algaeIntakeState) {
 
       case idle:
-        s_AlgaeIntake.setVoltage(0);
+      if (s_AlgaeIntake.holdingWithCurrent()) {
+        s_AlgaeIntake.setVoltage(1);
+      } 
+      else{
+       s_AlgaeIntake.setVoltage(0);
+   }      
       break;
+      case intakea:
+        if (!s_AlgaeIntake.holdingWithCurrent()) {
+            s_AlgaeIntake.setVoltage(2);
+          } 
+         else{
+           s_AlgaeIntake.setVoltage(1);
+         States.intakeState = IntakeStates.idle; 
+      }      
+
 
     }
   }

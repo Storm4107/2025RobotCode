@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -39,6 +40,7 @@ public class AlgaeIntake extends SubsystemBase {
   public double algaeIntakeSetpoint;
 
   public DigitalInput algaeSensor = new DigitalInput(Constants.superstructureConstants.algaeSensor);
+  private Debouncer currentDebouncer = new Debouncer(0.25);
 
   public AlgaeIntake() {
     algaeIntake.configure(Robot.hardwareConfigs.armConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -80,15 +82,25 @@ public class AlgaeIntake extends SubsystemBase {
     return algaeSensor.get();
   }
 
+  public boolean holdingWithCurrent() {
+    if (currentDebouncer.calculate(getCurrent() > 35)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("AlgaeIntake position", getPosition());
     SmartDashboard.putNumber("AlgaeIntake voltage", getVoltage());
     SmartDashboard.putNumber("AlgaeIntake error", getError());
+    SmartDashboard.putNumber("AlgaeIntake Current", getCurrent());
     SmartDashboard.putNumber("AlgaeIntake setpoint", algaeIntakeSetpoint);
 
     SmartDashboard.putBoolean("algaeSensor", algaeSensor()); 
+    SmartDashboard.putBoolean("algae Current limit", holdingWithCurrent()); 
 
     SmartDashboard.putBoolean("motor 1",  algaeIntake.getInverted());
   }

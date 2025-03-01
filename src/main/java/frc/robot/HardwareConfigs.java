@@ -90,7 +90,7 @@ public final class HardwareConfigs {
        .velocityConversionFactor(Constants.superstructureConstants.armVelocityConversion);
 
        //Intake configs
-       intakeConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(80).voltageCompensation(12).inverted(false).closedLoopRampRate(0.15);
+       intakeConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(40).voltageCompensation(12).inverted(false).closedLoopRampRate(0.25);
    
        intakeConfig
        .encoder
@@ -98,10 +98,10 @@ public final class HardwareConfigs {
        .velocityConversionFactor(Constants.superstructureConstants.intakeVelocityConversion);
 
        //Intake configs
-       intake2Config.idleMode(IdleMode.kBrake).smartCurrentLimit(80).voltageCompensation(12).follow(Constants.superstructureConstants.intake1ID, true);
+       intake2Config.idleMode(IdleMode.kBrake).smartCurrentLimit(40).voltageCompensation(12).follow(Constants.superstructureConstants.intake1ID, true);
 
        //AlgaeIntake configs
-       algaeIntakeConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(80).voltageCompensation(12).inverted(false).closedLoopRampRate(0.15);
+       algaeIntakeConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(50).voltageCompensation(12).inverted(false).closedLoopRampRate(0.4);
 
        algaeIntakeConfig
        .encoder

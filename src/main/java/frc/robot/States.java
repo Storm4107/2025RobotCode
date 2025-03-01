@@ -19,11 +19,11 @@ public class States {
     }
 
     public static enum IntakeStates {
-        idle, holdc, intakec
+        idle, holdc, intakec, intakea, holda, eject
     }
 
     public static enum AlgaeIntakeStates {
-        idle, holda, intakea
+        idle, holda, intakea, eject
     }
 
     public static enum AlgaeArmStates {

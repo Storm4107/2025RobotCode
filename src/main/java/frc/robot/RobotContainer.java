@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.States.AlgaeArmStates;
+import frc.robot.States.AlgaeIntakeStates;
 import frc.robot.States.ArmStates;
 import frc.robot.States.ElevatorStates;
 import frc.robot.States.IntakeStates;
@@ -68,8 +69,8 @@ public class RobotContainer {
     private final JoystickButton armUp = new JoystickButton(operator, 10);
     private final JoystickButton armDown = new JoystickButton(operator, 9);
 
-    private final JoystickButton zeroArm = new JoystickButton(operator, 3);
-    private final JoystickButton al1 = new JoystickButton(operator, 4);
+    private final JoystickButton zeroArm = new JoystickButton(operator, 300);
+    private final JoystickButton al1 = new JoystickButton(operator, 400);
     private final JoystickButton al2 = new JoystickButton(operator, 5);
     private final JoystickButton al3 = new JoystickButton(operator, 6);
     private final JoystickButton al4 = new JoystickButton(operator, 7);
@@ -80,8 +81,8 @@ public class RobotContainer {
     private final JoystickButton intakec = new JoystickButton(operator, 1);
     private final JoystickButton outtake = new JoystickButton(operator, 2);
 
-    private final JoystickButton algaeIntake = new JoystickButton(operator, 300);
-    private final JoystickButton algaeOuttake = new JoystickButton(operator, 400);
+    private final JoystickButton algaeIntake = new JoystickButton(operator, 3);
+    private final JoystickButton algaeOuttake = new JoystickButton(operator, 4);
 
     private final JoystickButton algaeUp = new JoystickButton(operator, 500);
     private final JoystickButton algaeDown = new JoystickButton(operator, 600);
@@ -194,11 +195,15 @@ public class RobotContainer {
 
         intakec.onTrue(new InstantCommand(() -> States.intakeState = IntakeStates.intakec));
         intakec.onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
+        //intakec.and(() -> s_Intake.holdingWithCurrent()).onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
+        
 
         outtake.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> -6));
 
-        algaeIntake.whileTrue(new AlgaeIntakeVoltageOverrideCommand(s_AlgaeIntake, () -> 3));
-        algaeOuttake.whileTrue(new AlgaeIntakeVoltageOverrideCommand(s_AlgaeIntake, () -> -3));
+        algaeIntake.onTrue(new InstantCommand(() -> States.algaeIntakeState = AlgaeIntakeStates.intakea));
+        algaeIntake.onFalse(new InstantCommand(() -> States.algaeIntakeState = AlgaeIntakeStates.idle));
+
+        algaeOuttake.whileTrue(new AlgaeIntakeVoltageOverrideCommand(s_AlgaeIntake, () -> -1.5));
 
         algaeUp.whileTrue(new AlgaeArmVoltageOverrideCommand(s_AlgaeArm, () -> 1));
         algaeDown.whileTrue(new AlgaeArmVoltageOverrideCommand(s_AlgaeArm, () -> -1));
