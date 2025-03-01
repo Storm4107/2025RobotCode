@@ -3,6 +3,7 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -11,6 +12,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -150,8 +155,25 @@ public class RobotContainer {
         configureButtonBindings();
 
 
-        //Pathplanner commands - templates
-        NamedCommands.registerCommand("marker1", Commands.print("Passed marker 1"));
+        //Pathplanner commands - templates TODO: Make named commands
+
+        //Elevator commands
+        NamedCommands.registerCommand("ElevatorL1", new InstantCommand(() -> States.elevatorState = ElevatorStates.l1));
+        NamedCommands.registerCommand("ElevatorL2", new InstantCommand(() -> States.elevatorState = ElevatorStates.l2));
+        NamedCommands.registerCommand("ElevatorL3", new InstantCommand(() -> States.elevatorState = ElevatorStates.l3));
+        NamedCommands.registerCommand("ElevatorL4", new InstantCommand(() -> States.elevatorState = ElevatorStates.l4));
+        NamedCommands.registerCommand("ElevatorZero", new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
+
+        //Arm Commands
+        NamedCommands.registerCommand("ArmL1", new InstantCommand(() -> States.armState = ArmStates.al1));
+        NamedCommands.registerCommand("ArmL2", new InstantCommand(() -> States.armState = ArmStates.al2));
+        NamedCommands.registerCommand("ArmL3", new InstantCommand(() -> States.armState = ArmStates.al3));
+        NamedCommands.registerCommand("ArmL4", new InstantCommand(() -> States.armState = ArmStates.al4));
+        NamedCommands.registerCommand("ArmZero", new InstantCommand(() -> States.armState = ArmStates.azero));
+
+        //Intake commands
+        NamedCommands.registerCommand("Outtake", new IntakeVoltageOverrideCommand(s_Intake, () -> -6).withTimeout(1));
+        NamedCommands.registerCommand("Intake", new InstantCommand(() -> States.intakeState = IntakeStates.intakec));
         NamedCommands.registerCommand("marker2", Commands.print("Passed marker 2"));
         NamedCommands.registerCommand("print hello", Commands.print("hello"));
     
@@ -190,8 +212,8 @@ public class RobotContainer {
         apickup.onTrue(new InstantCommand(() -> States.armState = ArmStates.apickup));
 
 
-        armUp.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> 8));
-        armDown.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> -8));
+        armUp.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> 2));
+        armDown.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> -2));
 
         intakec.onTrue(new InstantCommand(() -> States.intakeState = IntakeStates.intakec));
         intakec.onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
