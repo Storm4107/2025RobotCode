@@ -189,6 +189,9 @@ public final class Constants {
         public static final int algaeIntakeID = 30;
         public static final int algaeArmID = 25;
 
+        public static final int coralSensor = 8;
+        public static final int algaeSensor = 9; 
+
         public static final double elevatorkP = 2;
         public static final double elevatorkI = 0;
         public static final double elevatorkD = 0;

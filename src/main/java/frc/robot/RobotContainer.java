@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.States.AlgaeArmStates;
 import frc.robot.States.ArmStates;
 import frc.robot.States.ElevatorStates;
+import frc.robot.States.IntakeStates;
 import frc.robot.commands.*;
 import frc.robot.commands.ElevatorCommands.ElevatorStateCommand;
 import frc.robot.commands.ElevatorCommands.ElevatorVoltageOverrideCommand;
@@ -28,6 +29,7 @@ import frc.robot.commands.IntakeCommands.IntakeStateCommand;
 import frc.robot.commands.IntakeCommands.IntakeVoltageOverrideCommand;
 import frc.robot.commands.AlgaeIntakeCommands.*;
 import frc.robot.commands.AlgaeArmCommands.*;
+
 import frc.robot.subsystems.*;
 
 /**
@@ -75,7 +77,7 @@ public class RobotContainer {
 
 
 
-    private final JoystickButton intake = new JoystickButton(operator, 1);
+    private final JoystickButton intakec = new JoystickButton(operator, 1);
     private final JoystickButton outtake = new JoystickButton(operator, 2);
 
     private final JoystickButton algaeIntake = new JoystickButton(operator, 300);
@@ -190,7 +192,9 @@ public class RobotContainer {
         armUp.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> 8));
         armDown.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> -8));
 
-        intake.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> 6));
+        intakec.onTrue(new InstantCommand(() -> States.intakeState = IntakeStates.intakec));
+        intakec.onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
+
         outtake.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> -6));
 
         algaeIntake.whileTrue(new AlgaeIntakeVoltageOverrideCommand(s_AlgaeIntake, () -> 3));

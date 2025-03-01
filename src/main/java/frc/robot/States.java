@@ -11,7 +11,7 @@ public class States {
     }
 
     public static enum ElevatorStates {
-        idle, zero, l1, l2, l3, l4, lowAlgae, highAlgae, barge, intake
+        idle, zero, l1, l2, l3, l4, lowAlgae, highAlgae, barge, pickup
     }
 
     public static enum ArmStates {
@@ -19,11 +19,11 @@ public class States {
     }
 
     public static enum IntakeStates {
-        idle
+        idle, holdc, intakec
     }
 
     public static enum AlgaeIntakeStates {
-        idle
+        idle, holda, intakea
     }
 
     public static enum AlgaeArmStates {

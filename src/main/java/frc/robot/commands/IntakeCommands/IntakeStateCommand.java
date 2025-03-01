@@ -4,8 +4,11 @@
 
 package frc.robot.commands.IntakeCommands;
 
+import com.ctre.phoenix6.mechanisms.swerve.LegacySwerveRequest.Idle;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.States;
+import frc.robot.States.IntakeStates;
 import frc.robot.subsystems.Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -30,9 +33,20 @@ public class IntakeStateCommand extends Command {
       case idle:
         s_Intake.setVoltage(0);
       break;
-    
-    }
-  }
+      
+      case intakec:
+      if (s_Intake.coralSensor()) {
+        s_Intake.setVoltage(6);
+      } 
+      else{
+        s_Intake.setVoltage(0);
+      States.intakeState = IntakeStates.idle; 
+      }      
+       break;
+
+      }
+      }
+
 
   // Called once the command ends or is interrupted.
   @Override

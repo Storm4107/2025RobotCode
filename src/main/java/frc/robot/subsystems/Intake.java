@@ -15,6 +15,8 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -36,6 +38,9 @@ public class Intake extends SubsystemBase {
     Constants.superstructureConstants.intakekD);
   private RelativeEncoder intakeEncoder1 = intake1.getEncoder();
   public double intakeSetpoint;
+
+  public DigitalInput coralSensor = new DigitalInput(Constants.superstructureConstants.coralSensor);
+
 
   public Intake() {
     intake1.configure(Robot.hardwareConfigs.intakeConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -74,6 +79,10 @@ public class Intake extends SubsystemBase {
     intakeEncoder1.setPosition(inches);
   }
 
+  public boolean coralSensor() {
+    return coralSensor.get();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -81,6 +90,8 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putNumber("intake voltage", getVoltage());
     SmartDashboard.putNumber("intake error", getError());
     SmartDashboard.putNumber("intake setpoint", intakeSetpoint);
+
+    SmartDashboard.putBoolean("coralSensor", coralSensor()); 
 
     SmartDashboard.putBoolean("motor 1",  intake1.getInverted());
     SmartDashboard.putBoolean("motor 2",  intake2.getInverted());

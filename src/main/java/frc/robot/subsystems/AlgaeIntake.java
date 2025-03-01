@@ -15,6 +15,8 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -35,6 +37,8 @@ public class AlgaeIntake extends SubsystemBase {
     Constants.superstructureConstants.algaeIntakekD);
   private RelativeEncoder algaeIntakeEncoder = algaeIntake.getEncoder();
   public double algaeIntakeSetpoint;
+
+  public DigitalInput algaeSensor = new DigitalInput(Constants.superstructureConstants.algaeSensor);
 
   public AlgaeIntake() {
     algaeIntake.configure(Robot.hardwareConfigs.armConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -72,6 +76,10 @@ public class AlgaeIntake extends SubsystemBase {
     algaeIntakeEncoder.setPosition(inches);
   }
 
+  public boolean algaeSensor() {
+    return algaeSensor.get();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -79,6 +87,8 @@ public class AlgaeIntake extends SubsystemBase {
     SmartDashboard.putNumber("AlgaeIntake voltage", getVoltage());
     SmartDashboard.putNumber("AlgaeIntake error", getError());
     SmartDashboard.putNumber("AlgaeIntake setpoint", algaeIntakeSetpoint);
+
+    SmartDashboard.putBoolean("algaeSensor", algaeSensor()); 
 
     SmartDashboard.putBoolean("motor 1",  algaeIntake.getInverted());
   }
