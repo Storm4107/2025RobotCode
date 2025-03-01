@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.lang.Thread.State;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -58,33 +60,32 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, 17); //Joystick trigger
     private final JoystickButton robotCentric = new JoystickButton(driver, 16); //Joystick B16
 
+    private final JoystickButton allZero = new JoystickButton(driver, 21);
+    private final JoystickButton uniOverride = new JoystickButton(operator, 7);
+
+
     private final JoystickButton dampen = new JoystickButton(driver, 18);
 
-    private final JoystickButton zeroElevator = new JoystickButton(driver, 8);
-    private final JoystickButton l1 = new JoystickButton(driver, 7);
-    private final JoystickButton l2 = new JoystickButton(driver, 6);
-    private final JoystickButton l3 = new JoystickButton(driver, 5);
-    private final JoystickButton l4 = new JoystickButton(driver, 4);
+    private final JoystickButton zeroElevator = new JoystickButton(driver, 7);
+    private final JoystickButton l1 = new JoystickButton(driver, 4);
+    private final JoystickButton l2 = new JoystickButton(driver, 3);
+    private final JoystickButton l3 = new JoystickButton(driver, 2);
+    private final JoystickButton l4 = new JoystickButton(driver, 1);
 
-    private final JoystickButton ResetElevator = new JoystickButton(driver, 1);
-    private final JoystickButton elevatorUp = new JoystickButton(driver, 3);
-    private final JoystickButton elevatorDown = new JoystickButton(driver, 4);
+    private final JoystickButton ResetElevator = new JoystickButton(driver, 8);
 
-
-    private final JoystickButton armUp = new JoystickButton(operator, 10);
-    private final JoystickButton armDown = new JoystickButton(operator, 9);
+    private final POVButton elevatorUp = new POVButton(operator, 0);
+    private final POVButton elevatorDown = new POVButton(operator, 180);
+    private final POVButton armUp = new POVButton(operator, 90);
+    private final POVButton armDown = new POVButton(operator, 270);
 
     private final JoystickButton zeroArm = new JoystickButton(operator, 300);
-    private final JoystickButton al1 = new JoystickButton(operator, 400);
-    private final JoystickButton al2 = new JoystickButton(operator, 5);
     private final JoystickButton al3 = new JoystickButton(operator, 6);
-    private final JoystickButton al4 = new JoystickButton(operator, 7);
-    private final JoystickButton apickup = new JoystickButton(driver, 6);
+    private final JoystickButton al4 = new JoystickButton(operator, 5);
+    private final JoystickButton apickup = new JoystickButton(driver, 3);
 
-
-
-    private final JoystickButton intakec = new JoystickButton(operator, 1);
-    private final JoystickButton outtake = new JoystickButton(operator, 2);
+    private final JoystickButton intakec = new JoystickButton(operator, 2);
+    private final JoystickButton outtake = new JoystickButton(operator, 200);
 
     private final JoystickButton algaeIntake = new JoystickButton(operator, 3);
     private final JoystickButton algaeOuttake = new JoystickButton(operator, 4);
@@ -92,9 +93,9 @@ public class RobotContainer {
     private final JoystickButton algaeUp = new JoystickButton(operator, 500);
     private final JoystickButton algaeDown = new JoystickButton(operator, 600);
 
-    private final JoystickButton zero = new JoystickButton(operator, 900);
-    private final JoystickButton processor = new JoystickButton(operator, 800);
-    private final JoystickButton pickup = new JoystickButton(operator, 1000);
+    private final JoystickButton zero = new JoystickButton(operator, 8);
+    private final JoystickButton processor = new JoystickButton(operator, 10);
+    private final JoystickButton pickup = new JoystickButton(operator, 9);
 
 
 
@@ -190,6 +191,11 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
+
+        allZero.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
+        allZero.onTrue(new InstantCommand(() -> States.algaeArmState = AlgaeArmStates.zero));
+        allZero.onTrue(new InstantCommand(() -> States.armState = ArmStates.azero));
+
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
@@ -205,8 +211,6 @@ public class RobotContainer {
         elevatorDown.whileTrue(new ElevatorVoltageOverrideCommand(s_Elevator, () -> -1));
 
         zeroArm.onTrue(new InstantCommand(() -> States.armState = ArmStates.azero));
-        al1.onTrue(new InstantCommand(() -> States.armState = ArmStates.al1));
-        al2.onTrue(new InstantCommand(() -> States.armState = ArmStates.al2));
         al3.onTrue(new InstantCommand(() -> States.armState = ArmStates.al3));
         al4.onTrue(new InstantCommand(() -> States.armState = ArmStates.al4));
         apickup.onTrue(new InstantCommand(() -> States.armState = ArmStates.apickup));
@@ -218,7 +222,8 @@ public class RobotContainer {
         intakec.onTrue(new InstantCommand(() -> States.intakeState = IntakeStates.intakec));
         intakec.onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
         //intakec.and(() -> s_Intake.holdingWithCurrent()).onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
-        
+
+        uniOverride.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> 6));
 
         outtake.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> -6));
 

@@ -212,7 +212,7 @@ public final class Constants {
         public static final double algaeIntakekD = 1; 
         public static final double algaeIntakekF = 1;
 
-        public static final double algaeArmkP = 5;
+        public static final double algaeArmkP = .15;
         public static final double algaeArmkI = 0;
         public static final double algaeArmkD = 0; 
         public static final double algaeArmkF = 0.25;
