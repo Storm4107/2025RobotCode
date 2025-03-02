@@ -162,7 +162,7 @@ public final class Constants {
         public static final PIDConstants rotationPID = new PIDConstants(0.01, 0, 0);
 
         //TODO: Must be tuned to specific robot
-        public static final double ROBOT_MASS_KG = 74.088;
+        public static final double ROBOT_MASS_KG = 53.524;
         public static final double ROBOT_MOI = 6.883;
         public static final double WHEEL_COF = 1.2;
 

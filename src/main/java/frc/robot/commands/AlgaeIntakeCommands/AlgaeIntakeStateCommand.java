@@ -38,7 +38,7 @@ public class AlgaeIntakeStateCommand extends Command {
       break;
       case intakea:
         if (!s_AlgaeIntake.holdingWithCurrent()) {
-            s_AlgaeIntake.setVoltage(2);
+            s_AlgaeIntake.setVoltage(4);
           } 
          else{
            s_AlgaeIntake.setVoltage(1);

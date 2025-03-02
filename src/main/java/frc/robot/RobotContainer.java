@@ -67,10 +67,10 @@ public class RobotContainer {
     private final JoystickButton dampen = new JoystickButton(driver, 18);
 
     private final JoystickButton zeroElevator = new JoystickButton(driver, 7);
-    private final JoystickButton l1 = new JoystickButton(driver, 4);
-    private final JoystickButton l2 = new JoystickButton(driver, 3);
-    private final JoystickButton l3 = new JoystickButton(driver, 2);
-    private final JoystickButton l4 = new JoystickButton(driver, 1);
+    private final JoystickButton l2 = new JoystickButton(driver, 4);
+    private final JoystickButton l1 = new JoystickButton(driver, 3);
+    private final JoystickButton l4 = new JoystickButton(driver, 2);
+    private final JoystickButton barge = new JoystickButton(driver, 1);
 
     private final JoystickButton ResetElevator = new JoystickButton(driver, 8);
 
@@ -79,16 +79,16 @@ public class RobotContainer {
     private final POVButton armUp = new POVButton(operator, 90);
     private final POVButton armDown = new POVButton(operator, 270);
 
-    private final JoystickButton zeroArm = new JoystickButton(operator, 300);
     private final JoystickButton al3 = new JoystickButton(operator, 6);
     private final JoystickButton al4 = new JoystickButton(operator, 5);
-    private final JoystickButton apickup = new JoystickButton(driver, 3);
+    private final JoystickButton apickup = new JoystickButton(driver, 4);
 
     private final JoystickButton intakec = new JoystickButton(operator, 2);
-    private final JoystickButton outtake = new JoystickButton(operator, 200);
-
+    private final Trigger outtake = new Trigger(() -> (operator.getRawAxis(3) > 0));
+    private final Trigger zeroArm = new Trigger(() -> (operator.getRawAxis(2) > 0));
     private final JoystickButton algaeIntake = new JoystickButton(operator, 3);
     private final JoystickButton algaeOuttake = new JoystickButton(operator, 4);
+
 
     private final JoystickButton algaeUp = new JoystickButton(operator, 500);
     private final JoystickButton algaeDown = new JoystickButton(operator, 600);
@@ -202,7 +202,7 @@ public class RobotContainer {
         zeroElevator.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
         l1.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l1));
         l2.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l2));
-        l3.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l3));
+        barge.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.barge));
         l4.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l4));
 
         ResetElevator.whileTrue(new ZeroElevatorCommand(s_Elevator));
@@ -238,6 +238,8 @@ public class RobotContainer {
         processor.onTrue(new InstantCommand(() -> States.algaeArmState = AlgaeArmStates.processor));
         pickup.onTrue(new InstantCommand(() -> States.algaeArmState = AlgaeArmStates.pickup));
         zero.onTrue(new InstantCommand(() -> States.algaeArmState = AlgaeArmStates.zero));
+
+
 
         
         

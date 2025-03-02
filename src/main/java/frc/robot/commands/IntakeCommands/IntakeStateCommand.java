@@ -42,7 +42,7 @@ public class IntakeStateCommand extends Command {
       
       case intakec:
         if (s_Intake.coralSensor()) {
-          s_Intake.setVoltage(6);
+          s_Intake.setVoltage(8);
         } 
         else{
          s_Intake.setVoltage(0);
