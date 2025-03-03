@@ -36,7 +36,7 @@ public class AlgaeArmStateCommand extends Command {
       break;
 
       case processor:
-        s_AlgaeArm.runToSetpoint(-45);
+        s_AlgaeArm.runToSetpoint(-40);
       break;
 
       case pickup:

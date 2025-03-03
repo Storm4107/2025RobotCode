@@ -212,7 +212,7 @@ public final class Constants {
         public static final double algaeIntakekD = 1; 
         public static final double algaeIntakekF = 1;
 
-        public static final double algaeArmkP = .15;
+        public static final double algaeArmkP = .25;
         public static final double algaeArmkI = 0;
         public static final double algaeArmkD = 0; 
         public static final double algaeArmkF = 0.25;
@@ -229,8 +229,8 @@ public final class Constants {
         public static final double algaeIntakePositionConversion = 0.430408724; //0.430408724
         public static final double algaeIntakeVelocityConversion = 0.430408724; //0.430408724
 
-        public static final double algaeArmPositionConversion = 14.4; //0.430408724
-        public static final double algaeArmVelocityConversion = 14.4; //0.430408724
+        public static final double algaeArmPositionConversion = 2.88; //0.430408724
+        public static final double algaeArmVelocityConversion = 2.88; //0.430408724
     }
 
     public static final class PoseEstimator {

@@ -40,7 +40,7 @@ public class ArmStateCommand extends Command {
       break;
 
       case al2:
-        s_Arm.runToSetpoint(-20);
+        s_Arm.runToSetpoint(-23);
       break;
 
       case al3:
@@ -52,7 +52,7 @@ public class ArmStateCommand extends Command {
       break;
 
       case apickup:
-        s_Arm.runToSetpoint(-12);
+        s_Arm.runToSetpoint(-8);
       break;
     
     }

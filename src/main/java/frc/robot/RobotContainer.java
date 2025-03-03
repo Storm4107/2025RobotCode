@@ -79,6 +79,7 @@ public class RobotContainer {
     private final POVButton armUp = new POVButton(operator, 90);
     private final POVButton armDown = new POVButton(operator, 270);
 
+    private final JoystickButton al2 = new JoystickButton(driver, 4);
     private final JoystickButton al3 = new JoystickButton(operator, 6);
     private final JoystickButton al4 = new JoystickButton(operator, 5);
     private final JoystickButton apickup = new JoystickButton(driver, 4);
@@ -211,6 +212,7 @@ public class RobotContainer {
         elevatorDown.whileTrue(new ElevatorVoltageOverrideCommand(s_Elevator, () -> -1));
 
         zeroArm.onTrue(new InstantCommand(() -> States.armState = ArmStates.azero));
+        al2.onTrue(new InstantCommand(() -> States.armState = ArmStates.al2));
         al3.onTrue(new InstantCommand(() -> States.armState = ArmStates.al3));
         al4.onTrue(new InstantCommand(() -> States.armState = ArmStates.al4));
         apickup.onTrue(new InstantCommand(() -> States.armState = ArmStates.apickup));
