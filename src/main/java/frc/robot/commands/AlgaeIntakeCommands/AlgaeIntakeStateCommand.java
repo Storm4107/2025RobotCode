@@ -30,24 +30,25 @@ public class AlgaeIntakeStateCommand extends Command {
 
       case idle:
       if (s_AlgaeIntake.holdingWithCurrent()) {
-        s_AlgaeIntake.setVoltage(1);
+        s_AlgaeIntake.setVoltage(4);
       } 
       else{
        s_AlgaeIntake.setVoltage(0);
    }      
+    //s_AlgaeIntake.setVoltage(0);
       break;
       case intakea:
         if (!s_AlgaeIntake.holdingWithCurrent()) {
-            s_AlgaeIntake.setVoltage(4);
+            s_AlgaeIntake.setVoltage(6);
           } 
          else{
-           s_AlgaeIntake.setVoltage(1);
-         States.intakeState = IntakeStates.idle; 
-      }      
-
-
+           s_AlgaeIntake.setVoltage(4); 
+         States.intakeState = IntakeStates.idle;
+      //  s_AlgaeIntake.setVoltage(3);      
+         }
     }
-  }
+
+}
 
   // Called once the command ends or is interrupted.
   @Override

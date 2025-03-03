@@ -28,7 +28,7 @@ public class ElevatorStateCommand extends Command {
     switch(States.elevatorState) {
 
       case idle:
-        s_Elevator.setVoltage(0);
+        s_Elevator.setVoltage(0.15);
       break;
     
       case zero:

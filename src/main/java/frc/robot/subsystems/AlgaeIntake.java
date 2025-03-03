@@ -32,50 +32,24 @@ public class AlgaeIntake extends SubsystemBase {
   /** Creates a new AlgaeIntake. */
 
   private SparkMax algaeIntake = new SparkMax(Constants.superstructureConstants.algaeIntakeID, MotorType.kBrushless);
-  private PIDController algaeIntakeController = new PIDController(
-    Constants.superstructureConstants.algaeIntakekP,
-    Constants.superstructureConstants.algaeIntakekI,
-    Constants.superstructureConstants.algaeIntakekD);
-  private RelativeEncoder algaeIntakeEncoder = algaeIntake.getEncoder();
-  public double algaeIntakeSetpoint;
 
   public DigitalInput algaeSensor = new DigitalInput(Constants.superstructureConstants.algaeSensor);
   private Debouncer currentDebouncer = new Debouncer(0.25);
 
   public AlgaeIntake() {
-    algaeIntake.configure(Robot.hardwareConfigs.armConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-    setPosition(0);
-  }
-
-  public void runToSetpoint(double setpoint) {
-    double input = algaeIntakeController.calculate(algaeIntakeEncoder.getPosition(), setpoint) * Constants.superstructureConstants.armkF;
-    setVoltage(input);
-    algaeIntakeSetpoint = setpoint;
+    algaeIntake.configure(Robot.hardwareConfigs.algaeIntakeConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   public void setVoltage(double voltage) {
     algaeIntake.setVoltage(voltage);
   }
 
-  public double getPosition() {
-    return algaeIntakeEncoder.getPosition();
-  }
-
   public double getCurrent() {
     return algaeIntake.getOutputCurrent();
   }
 
-  public double getError() {
-    return (algaeIntakeSetpoint - getPosition());
-  }
-
   public double getVoltage() {
     return algaeIntake.getAppliedOutput() * 12;
-  }
-
-  public void setPosition(double inches) {
-    algaeIntakeEncoder.setPosition(inches);
   }
 
   public boolean algaeSensor() {
@@ -83,7 +57,7 @@ public class AlgaeIntake extends SubsystemBase {
   }
 
   public boolean holdingWithCurrent() {
-    if (currentDebouncer.calculate(getCurrent() > 35)) {
+    if (currentDebouncer.calculate(getCurrent() > 30)) {
       return true;
     } else {
       return false;
@@ -93,11 +67,8 @@ public class AlgaeIntake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("AlgaeIntake position", getPosition());
     SmartDashboard.putNumber("AlgaeIntake voltage", getVoltage());
-    SmartDashboard.putNumber("AlgaeIntake error", getError());
     SmartDashboard.putNumber("AlgaeIntake Current", getCurrent());
-    SmartDashboard.putNumber("AlgaeIntake setpoint", algaeIntakeSetpoint);
 
     SmartDashboard.putBoolean("algaeSensor", algaeSensor()); 
     SmartDashboard.putBoolean("algae Current limit", holdingWithCurrent()); 

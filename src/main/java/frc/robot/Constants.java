@@ -197,10 +197,13 @@ public final class Constants {
         public static final double elevatorkD = 0;
         public static final double elevatorkF = 0.25;
 
-        public static final double armkP = 2.4;
+        public static final double armkP = 0.35; //2.4
         public static final double armkI = 0;
         public static final double armkD = 0;
-        public static final double armkF = 0.25;
+        public static final double armkF = 0;
+
+        public static final double armAbsoluteEncoderOffset = 0;
+        public static final double armLimitDegrees = 260;
 
         public static final double intakekP = 1;
         public static final double intakekI = 1;
@@ -217,8 +220,8 @@ public final class Constants {
         public static final double algaeArmkD = 0; 
         public static final double algaeArmkF = 0.25;
 
-        public static final double armPositionConversion = 0.72; //0.430408724
-        public static final double armVelocityConversion = 0.72; //0.430408724
+        public static final double armPositionConversion = 0.8425; //0.430408724
+        public static final double armVelocityConversion = 0.8425; //0.430408724
 
         public static final double elevatorPositionConversion = 0.430408724; //0.430408724
         public static final double elevatorVelocityConversion = 0.430408724; //0.430408724
