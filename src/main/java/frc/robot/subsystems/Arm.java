@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.servohub.ServoHub.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -34,16 +35,16 @@ public class Arm extends SubsystemBase {
    Constants.superstructureConstants.armkI,
     Constants.superstructureConstants.armkD);
   private RelativeEncoder armEncoder = arm.getEncoder();
+  private AbsoluteEncoder armAbsoluteEncoder = arm.getAbsoluteEncoder();
   public double armSetpoint;
 
   public Arm() {
     arm.configure(Robot.hardwareConfigs.armConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-    setPosition(0);
   }
 
   public void runToSetpoint(double setpoint) {
-    double input = armController.calculate(armEncoder.getPosition(), setpoint) * Constants.superstructureConstants.armkF;
+    double input = armController.calculate(armEncoder.getPosition(), setpoint);
     setVoltage(input);
     armSetpoint = setpoint;
   }
@@ -52,8 +53,14 @@ public class Arm extends SubsystemBase {
     arm.setVoltage(voltage);
   }
 
-  public double getPosition() {
+  //Relative neo position in rotations
+  public double getNeoPosition() {
     return armEncoder.getPosition();
+  }
+
+  //Absolute encoder position + offset constand
+  public double getPosition() {
+    return armAbsoluteEncoder.getPosition() + Constants.superstructureConstants.armAbsoluteEncoderOffset;
   }
 
   public double getCurrent() {
@@ -72,10 +79,17 @@ public class Arm extends SubsystemBase {
     armEncoder.setPosition(inches);
   }
 
+  public double calculateInitialAbsoluteAngle(double reading) {
+    if (reading  > 340) {return reading - 360;}
+    else { return reading;}
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    setPosition(calculateInitialAbsoluteAngle(armAbsoluteEncoder.getPosition()));
     SmartDashboard.putNumber("Arm position", getPosition());
+    SmartDashboard.putNumber("Neo position", getNeoPosition());
     SmartDashboard.putNumber("Arm voltage", getVoltage());
     SmartDashboard.putNumber("Arm error", getError());
     SmartDashboard.putNumber("Arm setpoint", armSetpoint);
