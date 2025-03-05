@@ -163,7 +163,7 @@ public final class Constants {
 
         //TODO: Must be tuned to specific robot
         public static final double ROBOT_MASS_KG = 53.524;
-        public static final double ROBOT_MOI = 0.006;
+        public static final double ROBOT_MOI = 4.5;
         public static final double WHEEL_COF = 1.2;
 
         public static final ModuleConfig moduleConfig = new ModuleConfig(
