@@ -29,8 +29,8 @@ public final class Constants {
         COTSNeoSwerveConstants.SDSMK4i(driveGearRatios.SDSMK4i_L2);
 
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(28); //TODO: This must be tuned to specific robot
-        public static final double wheelBase = Units.inchesToMeters(28); //TODO: This must be tuned to specific robot
+        public static final double trackWidth = Units.inchesToMeters(24); //TODO: This must be tuned to specific robot
+        public static final double wheelBase = Units.inchesToMeters(24); //TODO: This must be tuned to specific robot
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
         public static final double driveRevToMeters =  wheelCircumference / (chosenModule.driveGearRatio);
@@ -78,13 +78,13 @@ public final class Constants {
         public static final double angleKF = chosenModule.angleKF;
 
         /* Drive Motor PID Values */
-        public static final double driveKP = .01; //TODO: This must be tuned to specific robot
+        public static final double driveKP = 2; //TODO: This must be tuned to specific robot
         public static final double driveKI = 0.0;
         public static final double driveKD = 0.0;
         public static final double driveKF = 0.0;
 
          /* Heading PID Values */
-        public static final double HeadingKP = 0.5;
+        public static final double HeadingKP = .5;
         public static final double HeadingKI = 0.0;
         public static final double HeadingKD = 0;
         public static final double HeadingTolerence = 0;
@@ -163,7 +163,7 @@ public final class Constants {
 
         //TODO: Must be tuned to specific robot
         public static final double ROBOT_MASS_KG = 53.524;
-        public static final double ROBOT_MOI = 6.883;
+        public static final double ROBOT_MOI = 0.006;
         public static final double WHEEL_COF = 1.2;
 
         public static final ModuleConfig moduleConfig = new ModuleConfig(

@@ -218,8 +218,8 @@ public class RobotContainer {
         apickup.onTrue(new InstantCommand(() -> States.armState = ArmStates.apickup));
 
 
-        armUp.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> 2));
-        armDown.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> -2));
+        armUp.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> 10));
+        armDown.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> -10));
 
         intakec.onTrue(new InstantCommand(() -> States.intakeState = IntakeStates.intakec));
         intakec.onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
