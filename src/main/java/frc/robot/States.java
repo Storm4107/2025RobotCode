@@ -15,7 +15,7 @@ public class States {
     }
 
     public static enum ArmStates {
-        idle, azero, al1, al2, al3, al4, alowAlgae, ahighAlgae, abarge, aintake, apickup
+        idle, azero, al1, al2, al3, al4, alowAlgae, ahighAlgae, abarge, aintake, apickup, handoff
     }
 
     public static enum IntakeStates {

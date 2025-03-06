@@ -76,12 +76,12 @@ public class RobotContainer {
 
     private final POVButton elevatorUp = new POVButton(operator, 0);
     private final POVButton elevatorDown = new POVButton(operator, 180);
-    private final POVButton armUp = new POVButton(operator, 90);
-    private final POVButton armDown = new POVButton(operator, 270);
+    private final POVButton armUp = new POVButton(operator, 270);
+    private final POVButton armDown = new POVButton(operator, 90);
 
     private final JoystickButton al2 = new JoystickButton(driver, 4);
     private final JoystickButton al3 = new JoystickButton(operator, 6);
-    private final JoystickButton al4 = new JoystickButton(operator, 5);
+    private final JoystickButton al4 = new JoystickButton(driver, 2);
     private final JoystickButton apickup = new JoystickButton(driver, 4);
 
     private final JoystickButton intakec = new JoystickButton(operator, 2);
@@ -93,6 +93,9 @@ public class RobotContainer {
 
     private final JoystickButton algaeUp = new JoystickButton(operator, 500);
     private final JoystickButton algaeDown = new JoystickButton(operator, 600);
+
+    private final JoystickButton handoff = new JoystickButton(operator, 8);
+    private final JoystickButton abarge = new JoystickButton(driver, 1);
 
     private final JoystickButton zero = new JoystickButton(operator, 8);
     private final JoystickButton processor = new JoystickButton(operator, 10);
@@ -216,10 +219,12 @@ public class RobotContainer {
         al3.onTrue(new InstantCommand(() -> States.armState = ArmStates.al3));
         al4.onTrue(new InstantCommand(() -> States.armState = ArmStates.al4));
         apickup.onTrue(new InstantCommand(() -> States.armState = ArmStates.apickup));
+        handoff.onTrue(new InstantCommand(() -> States.armState = ArmStates.handoff));
+        abarge.onTrue(new InstantCommand(() -> States.armState = ArmStates.abarge));
 
 
-        armUp.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> 10));
-        armDown.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> -10));
+        armUp.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> 12));
+        armDown.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> -12));
 
         intakec.onTrue(new InstantCommand(() -> States.intakeState = IntakeStates.intakec));
         intakec.onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));

@@ -24,6 +24,8 @@ import frc.robot.Constants;
 import frc.robot.HardwareConfigs;
 import frc.robot.Robot;
 import frc.robot.States;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
@@ -36,9 +38,15 @@ public class Elevator extends SubsystemBase {
   private RelativeEncoder elevatorEncoder1 = elevator1.getEncoder();
   public double elevatorSetpoint;
 
+  public UsbCamera camera0;
+  public UsbCamera camera1;
+
   public Elevator() {
     elevator1.configure(Robot.hardwareConfigs.elevatorConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     elevator2.configure(Robot.hardwareConfigs.elevator2Config, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+    camera0 = CameraServer.startAutomaticCapture(0);
+    camera1 = CameraServer.startAutomaticCapture(1);
 
     setPosition(0);
   }
