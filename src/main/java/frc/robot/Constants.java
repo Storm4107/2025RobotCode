@@ -44,6 +44,14 @@ public final class Constants {
             new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
             new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
 
+        public static final Translation2d[] moduleTranslations =
+            new Translation2d[] {
+            new Translation2d(trackWidth / 2.0, wheelBase / 2.0),
+            new Translation2d(trackWidth / 2.0, -wheelBase / 2.0),
+            new Translation2d(-trackWidth / 2.0, wheelBase / 2.0),
+            new Translation2d(-trackWidth / 2.0, -wheelBase / 2.0)
+        };
+
         /* Module Gear Ratios */
         public static final double driveGearRatio = chosenModule.driveGearRatio;
         public static final double angleGearRatio = chosenModule.angleGearRatio;

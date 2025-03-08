@@ -10,6 +10,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.util.PathPlannerLogging;
@@ -18,6 +19,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -38,8 +40,8 @@ public class Swerve extends SubsystemBase {
         config = new RobotConfig(
           Constants.AutoConstants.ROBOT_MASS_KG,
           Constants.AutoConstants.ROBOT_MOI,
-          Constants.AutoConstants.moduleConfig,
-          Constants.Swerve.trackWidth);
+          new ModuleConfig(0.05, 3.5, 0.9, DCMotor.getNEO(1).withReduction(6.746031746031747), 40, 1),
+          Constants.Swerve.moduleTranslations);
 
         gyro = new PigeonIMU(Constants.Swerve.pigeonID);
         gyro.configFactoryDefault();
@@ -60,7 +62,7 @@ public class Swerve extends SubsystemBase {
             this::getPose, // Robot pose supplier
             this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
             this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-            this:: driveRobotRelative, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
+            this::driveRobotRelative, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
             new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
                     Constants.AutoConstants.translationPID, // Translation PID constants
                     Constants.AutoConstants.rotationPID // Rotation PID constants
@@ -181,6 +183,7 @@ public class Swerve extends SubsystemBase {
 
         SmartDashboard.putNumber("Get Gyro", getGyroYaw().getDegrees());
         SmartDashboard.putNumber("Get Heading", getHeading().getDegrees());
+
         for(SwerveMod mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCANcoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
