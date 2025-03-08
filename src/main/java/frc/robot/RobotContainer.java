@@ -101,6 +101,7 @@ public class RobotContainer {
     private final JoystickButton processor = new JoystickButton(operator, 10);
     private final JoystickButton pickup = new JoystickButton(operator, 9);
 
+    private final JoystickButton al1 = new JoystickButton(driver, 3);
 
 
     //private final JoystickButton DynamicLock = new JoystickButton(driver, XboxController.Button.kX.value);
@@ -184,7 +185,7 @@ public class RobotContainer {
     
         
         //Auto chooser
-        autoChooser = AutoBuilder.buildAutoChooser("New Auto"); // Default auto will be `Commands.none()`
+        autoChooser = AutoBuilder.buildAutoChooser("new auto"); // Default auto will be `Commands.none()`
         SmartDashboard.putData("Auto Mode", autoChooser);
     }
 
@@ -215,6 +216,7 @@ public class RobotContainer {
         elevatorDown.whileTrue(new ElevatorVoltageOverrideCommand(s_Elevator, () -> -1));
 
         zeroArm.onTrue(new InstantCommand(() -> States.armState = ArmStates.azero));
+        al1.onTrue(new InstantCommand(() -> States.armState = ArmStates.al1));
         al2.onTrue(new InstantCommand(() -> States.armState = ArmStates.al2));
         al3.onTrue(new InstantCommand(() -> States.armState = ArmStates.al3));
         al4.onTrue(new InstantCommand(() -> States.armState = ArmStates.al4));

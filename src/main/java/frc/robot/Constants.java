@@ -166,7 +166,7 @@ public final class Constants {
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
 
         //TODO: Must be tuned to specific robot
-        public static final PIDConstants translationPID = new PIDConstants(1.0, 0, 0);
+        public static final PIDConstants translationPID = new PIDConstants(0.1, 0, .1);
         public static final PIDConstants rotationPID = new PIDConstants(0.01, 0, 0);
 
         //TODO: Must be tuned to specific robot

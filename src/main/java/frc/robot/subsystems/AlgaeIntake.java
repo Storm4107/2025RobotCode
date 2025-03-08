@@ -43,13 +43,13 @@ public class AlgaeIntake extends SubsystemBase {
   private Debouncer currentDebouncer = new Debouncer(0.25);
 
   public AlgaeIntake() {
-    algaeIntake.configure(Robot.hardwareConfigs.armConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    algaeIntake.configure(Robot.hardwareConfigs.algaeIntakeConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     setPosition(0);
   }
 
   public void runToSetpoint(double setpoint) {
-    double input = algaeIntakeController.calculate(algaeIntakeEncoder.getPosition(), setpoint) * Constants.superstructureConstants.armkF;
+    double input = algaeIntakeController.calculate(algaeIntakeEncoder.getPosition(), setpoint) * Constants.superstructureConstants.algaeIntakekF;
     setVoltage(input);
     algaeIntakeSetpoint = setpoint;
   }
