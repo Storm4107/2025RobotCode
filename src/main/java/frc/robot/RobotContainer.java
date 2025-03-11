@@ -158,7 +158,12 @@ public class RobotContainer {
             new AlgaeArmStateCommand(s_AlgaeArm)
         );
 
-        //new Event
+        //Checking the state of coral sensor and intake when the intake event is used
+        new EventTrigger("Intake").whileTrue(Commands.print("running intake"));
+        new EventTrigger("Intake").and(new Trigger(IntakeStates.intakec::s_Intake.coralSensor)).onFalse(Commands.print("Coral sensor not triggered"));
+        new EventTrigger("Intake").and(new Trigger(IntakeStates.intakec::s_Intake.coralSensor)).onTrue(Commands.print("Coral sensor triggered"));
+        
+        autoCommand.event("Intake").onTrue(Commands.print("passed Intake event marker"));
 
         // Configure the button bindings
         configureButtonBindings();
@@ -184,6 +189,11 @@ public class RobotContainer {
         NamedCommands.registerCommand("Outtake", new IntakeVoltageOverrideCommand(s_Intake, () -> -6).withTimeout(1));
         NamedCommands.registerCommand("IntakeOverride", new IntakeVoltageOverrideCommand(s_Intake, () -> 9).withTimeout(1));
         NamedCommands.registerCommand("Intake", new AutoIntakeCommand(s_Intake));
+
+        //Intake test Command
+        NamedCommands.registerCommand("Intake Test", new AutoIntakeCommand(s_Intake));
+
+
 
         //NamedCommands.registerCommand("Intake", new InstantCommand(() -> States.intakeState = IntakeStates.intakec));
         NamedCommands.registerCommand("marker2", Commands.print("Passed marker 2"));
@@ -236,7 +246,14 @@ public class RobotContainer {
 
         intakec.onTrue(new InstantCommand(() -> States.intakeState = IntakeStates.intakec));
         intakec.onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
-        //intakec.and(() -> s_Intake.holdingWithCurrent()).onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
+        intakec.and(() -> s_Intake.holdingWithCurrent()).onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
+
+
+        //testing a conditional command on PathPlanner using Voltage
+        intakec.and(() -> s_Intake.coralSensor()).onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.intake));
+        intakec.and(() -> s_Intake.coralSensor()).onTrue(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
+        s_intake.coralSensor.whileFalse(new IntakeVoltageOverrideCommand(s_Intake, () -> 6));
+        s_intake.coralSensor.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> 0));
 
         uniOverride.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> 6));
 

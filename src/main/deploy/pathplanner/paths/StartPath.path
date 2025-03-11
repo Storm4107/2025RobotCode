@@ -46,7 +46,13 @@
     },
     {
       "name": "Idle",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.0,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "marker5",
+      "waypointRelativePos": 0.5909090909090927,
       "endWaypointRelativePos": null,
       "command": null
     }
