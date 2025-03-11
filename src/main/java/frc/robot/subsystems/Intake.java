@@ -22,6 +22,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.HardwareConfigs;
@@ -42,6 +43,7 @@ public class Intake extends SubsystemBase {
   private Debouncer currentDebouncer = new Debouncer(0.25);
 
   public DigitalInput coralSensor = new DigitalInput(Constants.superstructureConstants.coralSensor);
+public Command intake;
 
 
   public Intake() {

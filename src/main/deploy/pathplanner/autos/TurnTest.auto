@@ -7,19 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "low moi"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ArmL3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ElevatorL2"
+            "pathName": "TurnTest"
           }
         }
       ]

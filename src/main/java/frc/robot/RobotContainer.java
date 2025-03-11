@@ -157,6 +157,8 @@ public class RobotContainer {
             new AlgaeArmStateCommand(s_AlgaeArm)
         );
 
+        //new Event
+
         // Configure the button bindings
         configureButtonBindings();
 
@@ -179,6 +181,9 @@ public class RobotContainer {
 
         //Intake commands
         NamedCommands.registerCommand("Outtake", new IntakeVoltageOverrideCommand(s_Intake, () -> -6).withTimeout(1));
+        NamedCommands.registerCommand("IntakeOverride", new IntakeVoltageOverrideCommand(s_Intake, () -> 9).withTimeout(1));
+        NamedCommands.registerCommand("Intake", new IntakeVoltageOverrideCommand(s_Intake, () -> 9).withTimeout(.25));
+
         NamedCommands.registerCommand("Intake", new InstantCommand(() -> States.intakeState = IntakeStates.intakec));
         NamedCommands.registerCommand("marker2", Commands.print("Passed marker 2"));
         NamedCommands.registerCommand("print hello", Commands.print("hello"));

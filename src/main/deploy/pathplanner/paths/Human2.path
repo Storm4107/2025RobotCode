@@ -3,48 +3,35 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 3.92,
+        "y": 2.865
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 3.588,
+        "y": 2.02625
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "L4Point"
     },
     {
       "anchor": {
-        "x": 3.85,
-        "y": 7.0
+        "x": 1.3064999999999998,
+        "y": 0.9439999999999997
       },
       "prevControl": {
-        "x": 2.85,
-        "y": 7.0
+        "x": 2.5837499999999993,
+        "y": 0.9049999999999999
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "HumanScore"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "ElevatorL2",
-      "waypointRelativePos": 0,
-      "endWaypointRelativePos": null,
-      "command": null
-    },
-    {
-      "name": "ArmL3",
-      "waypointRelativePos": 0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -55,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -127.47617956136138
   },
   "reversed": false,
-  "folder": "TuningPaths",
+  "folder": "2L3-4",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 57.65426254449245
   },
   "useDefaultConstraints": true
 }

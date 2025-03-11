@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.Command;
+
 public class States {
 
     public static enum DriveStates {
@@ -19,7 +21,12 @@ public class States {
     }
 
     public static enum IntakeStates {
-        idle, holdc, intakec, intakea, holda, eject
+        idle, holdc, intakec, intakea, holda, eject, autoOuttake, intake;
+
+        Command print(String string) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'print'");
+        }
     }
 
     public static enum AlgaeIntakeStates {

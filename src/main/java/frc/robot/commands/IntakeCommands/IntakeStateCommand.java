@@ -47,7 +47,10 @@ public class IntakeStateCommand extends Command {
         else{
          s_Intake.setVoltage(0);
         States.intakeState = IntakeStates.idle; 
-      }      
+      }  
+      
+      case intake:
+        s_Intake.setVoltage(8);
       break;
       }
       }

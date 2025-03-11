@@ -1,0 +1,104 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmL3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "StartPath"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeOverride"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmL2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ElevatorL2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HumanPath"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmL2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L4Path"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
