@@ -33,6 +33,7 @@ import frc.robot.commands.ElevatorCommands.ZeroElevatorCommand;
 import frc.robot.commands.ArmCommands.ArmStateCommand;
 import frc.robot.commands.ArmCommands.ArmVoltageOverrideCommand;
 import frc.robot.commands.ArmCommands.ZeroArmCommand;
+import frc.robot.commands.IntakeCommands.AutoIntakeCommand;
 import frc.robot.commands.IntakeCommands.IntakeStateCommand;
 import frc.robot.commands.IntakeCommands.IntakeVoltageOverrideCommand;
 import frc.robot.commands.AlgaeIntakeCommands.*;
@@ -182,9 +183,9 @@ public class RobotContainer {
         //Intake commands
         NamedCommands.registerCommand("Outtake", new IntakeVoltageOverrideCommand(s_Intake, () -> -6).withTimeout(1));
         NamedCommands.registerCommand("IntakeOverride", new IntakeVoltageOverrideCommand(s_Intake, () -> 9).withTimeout(1));
-        NamedCommands.registerCommand("Intake", new IntakeVoltageOverrideCommand(s_Intake, () -> 9).withTimeout(.25));
+        NamedCommands.registerCommand("Intake", new AutoIntakeCommand(s_Intake));
 
-        NamedCommands.registerCommand("Intake", new InstantCommand(() -> States.intakeState = IntakeStates.intakec));
+        //NamedCommands.registerCommand("Intake", new InstantCommand(() -> States.intakeState = IntakeStates.intakec));
         NamedCommands.registerCommand("marker2", Commands.print("Passed marker 2"));
         NamedCommands.registerCommand("print hello", Commands.print("hello"));
     
