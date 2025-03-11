@@ -250,10 +250,8 @@ public class RobotContainer {
 
 
         //testing a conditional command on PathPlanner using Voltage
-        intakec.and(() -> s_Intake.coralSensor()).onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.intake));
-        intakec.and(() -> s_Intake.coralSensor()).onTrue(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
-        s_intake.coralSensor.whileFalse(new IntakeVoltageOverrideCommand(s_Intake, () -> 6));
-        s_intake.coralSensor.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> 0));
+        intakec.and(() -> s_Intake.coralSensor()).onTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> 6));
+        intakec.and(() -> s_Intake.coralSensor()).onFalse(new IntakeVoltageOverrideCommand(s_Intake, () -> 0));
 
         uniOverride.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> 6));
 
