@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.34425,
-        "y": 2.5332499999999993
+        "x": 3.976298828125,
+        "y": 3.0226416015624995
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0122500000000003,
-        "y": 1.6944999999999992
+        "x": 3.644298828125,
+        "y": 2.1838916015624994
       },
       "isLocked": false,
-      "linkedName": "backupPoint"
+      "linkedName": "L4Point"
     },
     {
       "anchor": {
-        "x": 1.1797500000000003,
-        "y": 0.9732499999999993
+        "x": 1.3064999999999998,
+        "y": 0.9439999999999997
       },
       "prevControl": {
-        "x": 2.028,
-        "y": 1.5289999999999995
+        "x": 2.5837499999999993,
+        "y": 0.9049999999999999
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "2L3-4",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 57.33908727832619
+    "rotation": 57.65426254449245
   },
   "useDefaultConstraints": true
 }
