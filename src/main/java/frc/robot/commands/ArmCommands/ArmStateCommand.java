@@ -44,11 +44,11 @@ public class ArmStateCommand extends Command {
       break;
 
       case al3:
-        s_Arm.runToSetpoint(144);
+        s_Arm.runToSetpoint(140);
       break;
 
       case al4:
-        s_Arm.runToSetpoint(116);
+        s_Arm.runToSetpoint(85);
       break;
 
       case apickup:

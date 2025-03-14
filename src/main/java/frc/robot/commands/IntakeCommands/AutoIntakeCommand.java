@@ -24,18 +24,18 @@ public class AutoIntakeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    s_Intake.setVoltage(2);
+    s_Intake.setVoltage(6);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    s_Intake.setVoltage(2);
+    s_Intake.setVoltage(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return s_Intake.coralSensor();
+    return !s_Intake.coralSensor();
   }
 }

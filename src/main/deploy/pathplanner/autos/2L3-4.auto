@@ -1,0 +1,103 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmL3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "StartPath"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeOverride"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmL2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ElevatorL2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HumanPath"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ElevatorL4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L4Path"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeOverride"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "backup"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmL2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ElevatorL2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Human2"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

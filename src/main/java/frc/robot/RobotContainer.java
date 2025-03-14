@@ -183,7 +183,7 @@ public class RobotContainer {
         //Intake commands
         NamedCommands.registerCommand("Outtake", new IntakeVoltageOverrideCommand(s_Intake, () -> -6).withTimeout(1));
         NamedCommands.registerCommand("IntakeOverride", new IntakeVoltageOverrideCommand(s_Intake, () -> 9).withTimeout(1));
-        NamedCommands.registerCommand("Intake", new AutoIntakeCommand(s_Intake));
+        NamedCommands.registerCommand("Intake", new AutoIntakeCommand(s_Intake).withTimeout(10));
 
         //NamedCommands.registerCommand("Intake", new InstantCommand(() -> States.intakeState = IntakeStates.intakec));
         NamedCommands.registerCommand("marker2", Commands.print("Passed marker 2"));
