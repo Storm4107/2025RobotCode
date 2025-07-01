@@ -238,9 +238,9 @@ public class RobotContainer {
         intakec.onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
         //intakec.and(() -> s_Intake.holdingWithCurrent()).onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
 
-        uniOverride.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> 6));
+        uniOverride.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> 10));
 
-        outtake.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> -6));
+        outtake.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> -10));
 
         algaeIntake.onTrue(new InstantCommand(() -> States.algaeIntakeState = AlgaeIntakeStates.intakea));
         algaeIntake.onFalse(new InstantCommand(() -> States.algaeIntakeState = AlgaeIntakeStates.idle));
