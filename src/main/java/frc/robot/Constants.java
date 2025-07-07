@@ -194,42 +194,29 @@ public final class Constants {
         public static final int armID = 22;
         public static final int intake1ID = 23;
         public static final int intake2ID = 24;
-        public static final int algaeIntakeID = 30;
-        public static final int algaeArmID = 25;
 
         public static final int coralSensor = 8;
-        public static final int algaeSensor = 9; 
 
         public static final double elevatorkP = 2;
         public static final double elevatorkI = 0;
         public static final double elevatorkD = 0;
         public static final double elevatorkF = 0.25;
 
-        public static final double armkP = .35; //2.4
+        public static final double armkP = .1; //.15
         public static final double armkI = 0;
-        public static final double armkD = 0;
+        public static final double armkD = 0.000; //0.008
         public static final double armkF = 0;
 
-        public static final double armAbsoluteEncoderOffset = 0;
-        public static final double armLimitDegrees = 260;
+        public static final double armAbsoluteEncoderOffset = -12;
+        public static final double armLimitDegrees = 120;
 
         public static final double intakekP = 1;
         public static final double intakekI = 1;
         public static final double intakekD = 1; 
         public static final double intakekF = 1;
 
-        public static final double algaeIntakekP = 1;
-        public static final double algaeIntakekI = 1;
-        public static final double algaeIntakekD = 1; 
-        public static final double algaeIntakekF = 1;
-
-        public static final double algaeArmkP = .25;
-        public static final double algaeArmkI = 0;
-        public static final double algaeArmkD = 0; 
-        public static final double algaeArmkF = 0.25;
-
-        public static final double armPositionConversion = 0.8425; //0.430408724
-        public static final double armVelocityConversion = 0.8425; //0.430408724
+        public static final double armPositionConversion = 0.70833; //0.8425
+        public static final double armVelocityConversion = 0.70833; //0.8425
 
         public static final double elevatorPositionConversion = 0.430408724; //0.430408724
         public static final double elevatorVelocityConversion = 0.430408724; //0.430408724
@@ -237,11 +224,6 @@ public final class Constants {
         public static final double intakePositionConversion = 0.430408724; //0.430408724
         public static final double intakeVelocityConversion = 0.430408724; //0.430408724
 
-        public static final double algaeIntakePositionConversion = 0.430408724; //0.430408724
-        public static final double algaeIntakeVelocityConversion = 0.430408724; //0.430408724
-
-        public static final double algaeArmPositionConversion = 2.88; //0.430408724
-        public static final double algaeArmVelocityConversion = 2.88; //0.430408724
     }
 
     public static final class PoseEstimator {

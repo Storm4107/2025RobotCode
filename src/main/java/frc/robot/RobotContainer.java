@@ -21,8 +21,6 @@ import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.States.AlgaeArmStates;
-import frc.robot.States.AlgaeIntakeStates;
 import frc.robot.States.ArmStates;
 import frc.robot.States.ElevatorStates;
 import frc.robot.States.IntakeStates;
@@ -36,8 +34,6 @@ import frc.robot.commands.ArmCommands.ZeroArmCommand;
 import frc.robot.commands.IntakeCommands.AutoIntakeCommand;
 import frc.robot.commands.IntakeCommands.IntakeStateCommand;
 import frc.robot.commands.IntakeCommands.IntakeVoltageOverrideCommand;
-import frc.robot.commands.AlgaeIntakeCommands.*;
-import frc.robot.commands.AlgaeArmCommands.*;
 
 import frc.robot.subsystems.*;
 
@@ -62,15 +58,11 @@ public class RobotContainer {
     private final JoystickButton robotCentric = new JoystickButton(driver, 16); //Joystick B16
 
     private final JoystickButton allZero = new JoystickButton(driver, 21);
-    private final JoystickButton uniOverride = new JoystickButton(operator, 7);
-
 
     private final JoystickButton dampen = new JoystickButton(driver, 18);
 
     private final JoystickButton zeroElevator = new JoystickButton(driver, 7);
-    private final JoystickButton l2 = new JoystickButton(driver, 4);
-    private final JoystickButton l1 = new JoystickButton(driver, 3);
-    private final JoystickButton l4 = new JoystickButton(driver, 2);
+    private final JoystickButton l4 = new JoystickButton(operator, 5);
     private final JoystickButton barge = new JoystickButton(driver, 1);
 
     private final JoystickButton ResetElevator = new JoystickButton(driver, 8);
@@ -80,27 +72,24 @@ public class RobotContainer {
     private final POVButton armUp = new POVButton(operator, 270);
     private final POVButton armDown = new POVButton(operator, 90);
 
-    private final JoystickButton al2 = new JoystickButton(driver, 4);
-    private final JoystickButton al3 = new JoystickButton(operator, 6);
-    private final JoystickButton al4 = new JoystickButton(driver, 2);
-    private final JoystickButton apickup = new JoystickButton(driver, 4);
+    private final JoystickButton al2 = new JoystickButton(operator, 4);
+    private final JoystickButton l3 = new JoystickButton(operator, 6);
+    private final JoystickButton al4 = new JoystickButton(operator, 5);
 
     private final JoystickButton intakec = new JoystickButton(operator, 2);
     private final Trigger outtake = new Trigger(() -> (operator.getRawAxis(3) > 0));
     private final Trigger zeroArm = new Trigger(() -> (operator.getRawAxis(2) > 0));
-    private final JoystickButton algaeIntake = new JoystickButton(operator, 3);
-    private final JoystickButton algaeOuttake = new JoystickButton(operator, 4);
 
-
-    private final JoystickButton algaeUp = new JoystickButton(operator, 500);
-    private final JoystickButton algaeDown = new JoystickButton(operator, 600);
-
-    private final JoystickButton handoff = new JoystickButton(operator, 8);
+    private final JoystickButton apickup = new JoystickButton(operator, 8);
     private final JoystickButton abarge = new JoystickButton(driver, 1);
 
     private final JoystickButton zero = new JoystickButton(operator, 8);
     private final JoystickButton processor = new JoystickButton(operator, 10);
     private final JoystickButton pickup = new JoystickButton(operator, 9);
+    private final JoystickButton highAlgae = new JoystickButton(operator, 7);
+    private final JoystickButton lowAlgae = new JoystickButton(operator, 1);
+
+
 
     private final JoystickButton al1 = new JoystickButton(driver, 3);
 
@@ -116,8 +105,6 @@ public class RobotContainer {
     private final Elevator s_Elevator = new Elevator();
     private final Arm s_Arm = new Arm();
     private final Intake s_Intake = new Intake();
-    private final AlgaeIntake s_AlgaeIntake = new AlgaeIntake();
-    private final AlgaeArm s_AlgaeArm = new AlgaeArm();
 
     //private final Vision s_Vision = new Vision(s_PoseEstimator);
 
@@ -150,14 +137,6 @@ public class RobotContainer {
             new IntakeStateCommand(s_Intake)
         );
 
-        s_AlgaeIntake.setDefaultCommand(
-            new AlgaeIntakeStateCommand(s_AlgaeIntake)
-        );
-
-        s_AlgaeArm.setDefaultCommand(
-            new AlgaeArmStateCommand(s_AlgaeArm)
-        );
-
         //new Event
 
         // Configure the button bindings
@@ -167,8 +146,6 @@ public class RobotContainer {
         //Pathplanner commands - templates TODO: Make named commands
 
         //Elevator commands
-        NamedCommands.registerCommand("ElevatorL1", new InstantCommand(() -> States.elevatorState = ElevatorStates.l1));
-        NamedCommands.registerCommand("ElevatorL2", new InstantCommand(() -> States.elevatorState = ElevatorStates.l2));
         NamedCommands.registerCommand("ElevatorL3", new InstantCommand(() -> States.elevatorState = ElevatorStates.l3));
         NamedCommands.registerCommand("ElevatorL4", new InstantCommand(() -> States.elevatorState = ElevatorStates.l4));
         NamedCommands.registerCommand("ElevatorZero", new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
@@ -204,17 +181,15 @@ public class RobotContainer {
     private void configureButtonBindings() {
 
         allZero.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
-        allZero.onTrue(new InstantCommand(() -> States.algaeArmState = AlgaeArmStates.zero));
         allZero.onTrue(new InstantCommand(() -> States.armState = ArmStates.azero));
 
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
         zeroElevator.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
-        l1.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l1));
-        l2.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l2));
         barge.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.barge));
         l4.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l4));
+        l3.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l3));
 
         ResetElevator.whileTrue(new ZeroElevatorCommand(s_Elevator));
 
@@ -223,41 +198,29 @@ public class RobotContainer {
 
         zeroArm.onTrue(new InstantCommand(() -> States.armState = ArmStates.azero));
         al1.onTrue(new InstantCommand(() -> States.armState = ArmStates.al1));
+        al1.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
         al2.onTrue(new InstantCommand(() -> States.armState = ArmStates.al2));
-        al3.onTrue(new InstantCommand(() -> States.armState = ArmStates.al3));
+        al2.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
+        l3.onTrue(new InstantCommand(() -> States.armState = ArmStates.al3));
         al4.onTrue(new InstantCommand(() -> States.armState = ArmStates.al4));
         apickup.onTrue(new InstantCommand(() -> States.armState = ArmStates.apickup));
-        handoff.onTrue(new InstantCommand(() -> States.armState = ArmStates.handoff));
-        abarge.onTrue(new InstantCommand(() -> States.armState = ArmStates.abarge));
+        apickup.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
+        abarge.onTrue(new InstantCommand(() -> States.armState = ArmStates.barge));
+        pickup.onTrue(new InstantCommand(() -> States.armState = ArmStates.cpickup));
+        pickup.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
+        highAlgae.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.highAlgae));
+        lowAlgae.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.lowAlgae));
+        highAlgae.onTrue(new InstantCommand(() -> States.armState = ArmStates.armAlgae));
+        lowAlgae.onTrue(new InstantCommand(() -> States.armState = ArmStates.armAlgae));
 
-
-        armUp.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> 12));
-        armDown.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> -12));
+        armUp.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> 3));
+        armDown.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> -3));
 
         intakec.onTrue(new InstantCommand(() -> States.intakeState = IntakeStates.intakec));
         intakec.onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
-        //intakec.and(() -> s_Intake.holdingWithCurrent()).onFalse(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
-
-        uniOverride.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> 10));
+        //intakec.and(() -> s_Intake.holdingWithCurrent()).onTrue(new InstantCommand(() -> States.intakeState = IntakeStates.idle));
 
         outtake.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> -10));
-
-        algaeIntake.onTrue(new InstantCommand(() -> States.algaeIntakeState = AlgaeIntakeStates.intakea));
-        algaeIntake.onFalse(new InstantCommand(() -> States.algaeIntakeState = AlgaeIntakeStates.idle));
-
-        algaeOuttake.whileTrue(new AlgaeIntakeVoltageOverrideCommand(s_AlgaeIntake, () -> -1.5));
-
-        algaeUp.whileTrue(new AlgaeArmVoltageOverrideCommand(s_AlgaeArm, () -> 1));
-        algaeDown.whileTrue(new AlgaeArmVoltageOverrideCommand(s_AlgaeArm, () -> -1));
-
-        processor.onTrue(new InstantCommand(() -> States.algaeArmState = AlgaeArmStates.processor));
-        pickup.onTrue(new InstantCommand(() -> States.algaeArmState = AlgaeArmStates.pickup));
-        zero.onTrue(new InstantCommand(() -> States.algaeArmState = AlgaeArmStates.zero));
-
-
-
-        
-        
     }
 
     /**

@@ -35,20 +35,20 @@ public class ElevatorStateCommand extends Command {
         s_Elevator.runToSetpoint(0);
       break;
 
-      case l1:
-        s_Elevator.runToSetpoint(6.5);
-      break;
-
-      case l2:
-        s_Elevator.runToSetpoint(10.5);
-      break;
-
       case l3:
-        s_Elevator.runToSetpoint(25);
+        s_Elevator.runToSetpoint(30);
       break;
 
       case l4:
-        s_Elevator.runToSetpoint(43);
+        s_Elevator.runToSetpoint(48);
+      break;
+
+      case highAlgae:
+      s_Elevator.runToSetpoint(30);
+      break;
+
+      case lowAlgae:
+      s_Elevator.runToSetpoint(20);
       break;
 
       case barge:

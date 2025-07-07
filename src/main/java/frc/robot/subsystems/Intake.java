@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.servohub.ServoHub.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -88,7 +89,7 @@ public Command intake;
   }
 
   public boolean holdingWithCurrent() {
-    if (currentDebouncer.calculate(getCurrent() > 25)) {
+    if (currentDebouncer.calculate(getCurrent() >25)) {
       return true;
     } else {
       return false;

@@ -36,31 +36,35 @@ public class ArmStateCommand extends Command {
       break;
 
       case al1:
-        s_Arm.runToSetpoint(15);
-      break;
-
-      case al2:
-        s_Arm.runToSetpoint(19);
-      break;
-
-      case al3:
-        s_Arm.runToSetpoint(140);
-      break;
-
-      case al4:
         s_Arm.runToSetpoint(85);
       break;
 
+      case al2:
+        s_Arm.runToSetpoint(110);
+      break;
+
+      case al3:
+        s_Arm.runToSetpoint(60);
+      break;
+
+      case al4:
+        s_Arm.runToSetpoint(70);
+      break;
+
       case apickup:
-        s_Arm.runToSetpoint(14);
+        s_Arm.runToSetpoint(38);//algae pickup
       break;
 
-      case handoff:
-        s_Arm.runToSetpoint(265);
+      case cpickup:
+        s_Arm.runToSetpoint(115);//coral pickup
       break;
 
-      case abarge:
+      case barge:
         s_Arm.runToSetpoint(150);
+      break;
+
+      case armAlgae:
+        s_Arm.runToSetpoint(55);
       break;
     
     }

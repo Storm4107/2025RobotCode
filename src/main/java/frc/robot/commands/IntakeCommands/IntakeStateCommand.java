@@ -33,21 +33,24 @@ public class IntakeStateCommand extends Command {
       case idle:
 
         if (s_Intake.holdingWithCurrent()) {
-         s_Intake.setVoltage(2);
+         s_Intake.setVoltage(6);
        } 
        else{
         s_Intake.setVoltage(0);
-    }      
+       }      
       break;
       
       case intakec:
         if (s_Intake.coralSensor()) {
-          s_Intake.setVoltage(8);
+          s_Intake.setVoltage(-8);
         } 
         else{
          s_Intake.setVoltage(0);
         States.intakeState = IntakeStates.idle; 
-      }  
+        }  
+
+      //outtake.whileTrue(new IntakeVoltageOverrideCommand(s_Intake, () -> -10));
+
       
       case intake:
         s_Intake.setVoltage(8);
