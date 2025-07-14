@@ -33,7 +33,7 @@ public class IntakeStateCommand extends Command {
       case idle:
 
         if (s_Intake.holdingWithCurrent()) {
-         s_Intake.setVoltage(6);
+         s_Intake.setVoltage(4);
        } 
        else{
         s_Intake.setVoltage(0);

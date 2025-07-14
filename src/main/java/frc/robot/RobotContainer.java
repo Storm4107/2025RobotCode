@@ -72,7 +72,7 @@ public class RobotContainer {
     private final POVButton armUp = new POVButton(operator, 270);
     private final POVButton armDown = new POVButton(operator, 90);
 
-    private final JoystickButton al2 = new JoystickButton(operator, 4);
+    private final JoystickButton l2 = new JoystickButton(operator, 4);
     private final JoystickButton l3 = new JoystickButton(operator, 6);
     private final JoystickButton al4 = new JoystickButton(operator, 5);
 
@@ -86,12 +86,13 @@ public class RobotContainer {
     private final JoystickButton zero = new JoystickButton(operator, 8);
     private final JoystickButton processor = new JoystickButton(operator, 10);
     private final JoystickButton pickup = new JoystickButton(operator, 9);
-    private final JoystickButton highAlgae = new JoystickButton(operator, 7);
-    private final JoystickButton lowAlgae = new JoystickButton(operator, 1);
+    private final JoystickButton highAlgae = new JoystickButton(driver, 2);
+    private final JoystickButton lowAlgae = new JoystickButton(driver, 3);
+    private final JoystickButton CoralAlgae = new JoystickButton(operator, 1);
 
+//test
 
-
-    private final JoystickButton al1 = new JoystickButton(driver, 3);
+    private final JoystickButton al1 = new JoystickButton(operator, 3);
 
 
     //private final JoystickButton DynamicLock = new JoystickButton(driver, XboxController.Button.kX.value);
@@ -146,11 +147,13 @@ public class RobotContainer {
         //Pathplanner commands - templates TODO: Make named commands
 
         //Elevator commands
+        NamedCommands.registerCommand("ElevatorL2", new InstantCommand(() -> States.elevatorState = ElevatorStates.l2));
         NamedCommands.registerCommand("ElevatorL3", new InstantCommand(() -> States.elevatorState = ElevatorStates.l3));
         NamedCommands.registerCommand("ElevatorL4", new InstantCommand(() -> States.elevatorState = ElevatorStates.l4));
         NamedCommands.registerCommand("ElevatorZero", new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
 
         //Arm Commands
+        NamedCommands.registerCommand("CoralAlgae", new InstantCommand(() -> States.armState = ArmStates.CoralAlgae));
         NamedCommands.registerCommand("ArmL1", new InstantCommand(() -> States.armState = ArmStates.al1));
         NamedCommands.registerCommand("ArmL2", new InstantCommand(() -> States.armState = ArmStates.al2));
         NamedCommands.registerCommand("ArmL3", new InstantCommand(() -> States.armState = ArmStates.al3));
@@ -190,6 +193,7 @@ public class RobotContainer {
         barge.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.barge));
         l4.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l4));
         l3.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l3));
+        l2.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l2));
 
         ResetElevator.whileTrue(new ZeroElevatorCommand(s_Elevator));
 
@@ -199,8 +203,7 @@ public class RobotContainer {
         zeroArm.onTrue(new InstantCommand(() -> States.armState = ArmStates.azero));
         al1.onTrue(new InstantCommand(() -> States.armState = ArmStates.al1));
         al1.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
-        al2.onTrue(new InstantCommand(() -> States.armState = ArmStates.al2));
-        al2.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
+        l2.onTrue(new InstantCommand(() -> States.armState = ArmStates.al2));
         l3.onTrue(new InstantCommand(() -> States.armState = ArmStates.al3));
         al4.onTrue(new InstantCommand(() -> States.armState = ArmStates.al4));
         apickup.onTrue(new InstantCommand(() -> States.armState = ArmStates.apickup));
