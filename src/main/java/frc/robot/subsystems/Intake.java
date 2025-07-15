@@ -89,7 +89,7 @@ public Command intake;
   }
 
   public boolean holdingWithCurrent() {
-    if (currentDebouncer.calculate(getCurrent() >25)) {
+    if (currentDebouncer.calculate(getCurrent() >17)) {
       return true;
     } else {
       return false;

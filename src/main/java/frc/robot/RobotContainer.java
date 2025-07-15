@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -81,7 +82,6 @@ public class RobotContainer {
     private final Trigger zeroArm = new Trigger(() -> (operator.getRawAxis(2) > 0));
 
     private final JoystickButton apickup = new JoystickButton(operator, 8);
-    private final JoystickButton abarge = new JoystickButton(driver, 1);
 
     private final JoystickButton zero = new JoystickButton(operator, 8);
     private final JoystickButton processor = new JoystickButton(operator, 10);
@@ -158,7 +158,8 @@ public class RobotContainer {
         NamedCommands.registerCommand("ArmL2", new InstantCommand(() -> States.armState = ArmStates.al2));
         NamedCommands.registerCommand("ArmL3", new InstantCommand(() -> States.armState = ArmStates.al3));
         NamedCommands.registerCommand("ArmL4", new InstantCommand(() -> States.armState = ArmStates.al4));
-        NamedCommands.registerCommand("ArmZero", new InstantCommand(() -> States.armState = ArmStates.azero));
+        //THIS BREAKS THE ROBOT
+        //NamedCommands.registerCommand("ArmZero", new InstantCommand(() -> States.armState = ArmStates.azero));
 
         //Intake commands
         NamedCommands.registerCommand("Outtake", new IntakeVoltageOverrideCommand(s_Intake, () -> -6).withTimeout(1));
@@ -191,6 +192,7 @@ public class RobotContainer {
 
         zeroElevator.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
         barge.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.barge));
+        barge.onTrue(new SequentialCommandGroup(new InstantCommand(() -> States.elevatorState = ElevatorStates.barge), new WaitCommand(2), new InstantCommand(()->States.armState = ArmStates.barge)));
         l4.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l4));
         l3.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l3));
         l2.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.l2));
@@ -208,7 +210,6 @@ public class RobotContainer {
         al4.onTrue(new InstantCommand(() -> States.armState = ArmStates.al4));
         apickup.onTrue(new InstantCommand(() -> States.armState = ArmStates.apickup));
         apickup.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
-        abarge.onTrue(new InstantCommand(() -> States.armState = ArmStates.barge));
         pickup.onTrue(new InstantCommand(() -> States.armState = ArmStates.cpickup));
         pickup.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
         highAlgae.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.highAlgae));
