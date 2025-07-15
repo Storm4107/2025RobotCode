@@ -56,7 +56,7 @@ public class ElevatorStateCommand extends Command {
       break;
 
       case barge:
-        s_Elevator.runToSetpoint(45);
+        s_Elevator.runToSetpoint(46);
     
     }
   }
