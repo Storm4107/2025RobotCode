@@ -18,13 +18,13 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.HardwareConfigs;
 import frc.robot.Robot;
 import frc.robot.States;
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 
 public class Elevator extends SubsystemBase {
@@ -32,21 +32,23 @@ public class Elevator extends SubsystemBase {
 
   private SparkMax elevator1 =new SparkMax(Constants.superstructureConstants.elevator1ID, MotorType.kBrushless);
   private SparkMax elevator2 =new SparkMax(Constants.superstructureConstants.elevator2ID, MotorType.kBrushless);
+  /*OLD PID Controller (To Fast)
   private PIDController elevatorController = new PIDController(Constants.superstructureConstants.elevatorkP,
    Constants.superstructureConstants.elevatorkI,
-    Constants.superstructureConstants.elevatorkD);
+    Constants.superstructureConstants.elevatorkD); */
+
+
+    //Speed Control 
+    private ProfiledPIDController elevatorController = new ProfiledPIDController(Constants.superstructureConstants.elevatorkP,
+    Constants.superstructureConstants.elevatorkI,
+    //Constraints Velocity Accell
+     Constants.superstructureConstants.elevatorkD, new Constraints(35.0, 60.0));
   private RelativeEncoder elevatorEncoder1 = elevator1.getEncoder();
   public double elevatorSetpoint;
-
-  public UsbCamera camera0;
-  public UsbCamera camera1;
 
   public Elevator() {
     elevator1.configure(Robot.hardwareConfigs.elevatorConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     elevator2.configure(Robot.hardwareConfigs.elevator2Config, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-    camera0 = CameraServer.startAutomaticCapture(0);
-    camera1 = CameraServer.startAutomaticCapture(1);
 
     setPosition(0);
   }

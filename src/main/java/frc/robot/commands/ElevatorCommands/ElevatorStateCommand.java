@@ -40,7 +40,7 @@ public class ElevatorStateCommand extends Command {
         break;
 
       case l3:
-        s_Elevator.runToSetpoint(30);
+        s_Elevator.runToSetpoint(26.5);
       break;
 
       case l4:
@@ -48,7 +48,7 @@ public class ElevatorStateCommand extends Command {
       break;
 
       case highAlgae:
-      s_Elevator.runToSetpoint(30);
+      s_Elevator.runToSetpoint(33);
       break;
 
       case lowAlgae:

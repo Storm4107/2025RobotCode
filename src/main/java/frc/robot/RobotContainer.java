@@ -1,5 +1,7 @@
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Newton;
+
 import java.lang.Thread.State;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -84,13 +86,13 @@ public class RobotContainer {
     private final JoystickButton apickup = new JoystickButton(operator, 8);
 
     private final JoystickButton zero = new JoystickButton(operator, 8);
-    private final JoystickButton processor = new JoystickButton(operator, 10);
+    //private final JoystickButton processor = new JoystickButton(operator, 10);
     private final JoystickButton pickup = new JoystickButton(operator, 9);
     private final JoystickButton highAlgae = new JoystickButton(driver, 2);
     private final JoystickButton lowAlgae = new JoystickButton(driver, 3);
-    private final JoystickButton CoralAlgae = new JoystickButton(operator, 1);
+    private final JoystickButton CoralAlgae = new JoystickButton(operator, 7);
 
-//test
+    private final JoystickButton Processor = new JoystickButton(operator, 1);
 
     private final JoystickButton al1 = new JoystickButton(operator, 3);
 
@@ -153,6 +155,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("ElevatorZero", new InstantCommand(() -> States.elevatorState = ElevatorStates.zero));
 
         //Arm Commands
+        NamedCommands.registerCommand("Processor", new InstantCommand(() -> States.armState = ArmStates.Processor));
         NamedCommands.registerCommand("CoralAlgae", new InstantCommand(() -> States.armState = ArmStates.CoralAlgae));
         NamedCommands.registerCommand("ArmL1", new InstantCommand(() -> States.armState = ArmStates.al1));
         NamedCommands.registerCommand("ArmL2", new InstantCommand(() -> States.armState = ArmStates.al2));
@@ -216,6 +219,8 @@ public class RobotContainer {
         lowAlgae.onTrue(new InstantCommand(() -> States.elevatorState = ElevatorStates.lowAlgae));
         highAlgae.onTrue(new InstantCommand(() -> States.armState = ArmStates.armAlgae));
         lowAlgae.onTrue(new InstantCommand(() -> States.armState = ArmStates.armAlgae));
+        CoralAlgae.onTrue(new InstantCommand(() -> States.armState = ArmStates.CoralAlgae));
+        Processor.onTrue(new InstantCommand(() -> States.armState = ArmStates.Processor));
 
         armUp.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> 3));
         armDown.whileTrue(new ArmVoltageOverrideCommand(s_Arm, () -> -3));

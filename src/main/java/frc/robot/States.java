@@ -17,7 +17,7 @@ public class States {
     }
 
     public static enum ArmStates {
-        idle, azero, al1, al2, al3, al4, barge, aintake, apickup, cpickup, armAlgae, CoralAlgae
+        idle, azero, al1, al2, al3, al4, barge, aintake, apickup, cpickup, armAlgae, CoralAlgae, Processor
     }
 
     public static enum IntakeStates {

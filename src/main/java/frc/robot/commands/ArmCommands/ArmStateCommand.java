@@ -48,7 +48,7 @@ public class ArmStateCommand extends Command {
       break;
 
       case al4:
-        s_Arm.runToSetpoint(67);
+        s_Arm.runToSetpoint(65);
       break;
 
       case apickup:
@@ -69,6 +69,10 @@ public class ArmStateCommand extends Command {
 
       case CoralAlgae:
         s_Arm.runToSetpoint(66);
+        break;
+
+      case Processor:
+        s_Arm.runToSetpoint(70);
         break;
     
     }
